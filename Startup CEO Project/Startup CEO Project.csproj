@@ -33,7 +33,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <StartupObject>Startup_Company_Benefits.Program</StartupObject>
+    <StartupObject>Startup_CEO_Project.Program</StartupObject>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -50,6 +50,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Common.cs" />
+    <Compile Include="EmployeeCalculations.cs" />
+    <Compile Include="ResultCalcuations.cs" />
+    <Compile Include="ResultsPair.cs" />
     <Compile Include="StartupCEOForm.cs">
       <SubType>Form</SubType>
     </Compile>

@@ -1,8 +1,13 @@
-﻿/* 
- * Name: Nicholas Cullen
- * Date: 3/24/2020
- * Program Name: Startup Company Benefits Calcuator
- * Program Description: Allows you to calculate several employee benefits for a company, such as their Raise, their Vacation days, and their bonus
+﻿#region Program Description
+/* 
+* Name: Nicholas Cullen
+* Date: 3/24/2020
+* Program Name: Startup Company Benefits Calcuator
+* Program Description: Allows you to calculate several employee benefits for a company, such as their Raise, their Vacation days, and their bonus
+*/
+#endregion
+#region Initial Setup Week 1
+/*
  * Estimated Total Development Time: 5 hours
  * 
  * Time Log:
@@ -29,6 +34,7 @@
  *      
  *      
  */
+#endregion
 #region Exception Handling Addon - Timelog
 /*
 *-----EXCEPTION HANLDING ADDON-----
@@ -47,6 +53,39 @@
 *      
 */
 #endregion
+#region Week 2 - Addition of Loops, File I/O, And Random Number Generator
+/*
+*-----EXCEPTION HANLDING ADDON-----
+* Estimated Total Development Time:: 2 Hours
+* 
+* TimeLog:
+* [
+*   20 Minutes: 3/30/2020 : Added a "Save to File" Button and make it so that it saves the results to a user-specified file
+*   20 Minutes: 3/31/2020 : Began work on new results system
+*   18 Minutes: 3/31/2020 : Redesigned ResultsForm.ShowResults so that it can take as many results as you want
+*   35 Minutes: 3/31/2020 : Refactored the code into seperate files, and added an ability to calculate everything
+*   12 Minutes: 3/31/2020 : Fixed the copy and save to file buttons to work with all the textboxes in the results form
+*   35 Minutes: 4/1/2020 : Made each of the calculation buttons asynchronous, and added a loop to each of them. That way, they can repeat untill the user does not want to recalculate them anymore
+*   15 Minutes: 4/1/2020 : Cleanup and final touches
+* ]
+* 
+* Total Time Spent: ~2 Hours and 35 Minutes
+* 
+* Notes:
+*   When I first started this addition to the program and calculated my estimate, I though it wouldn't be too hard to get done,
+*   since I have already implemented the random number generator from the last assignment. That left me with only two requirements to implement.
+*   
+*   But I did get a bit confused on how to implement the looping behaviour for displaying the results. The requirement was:
+*   ' Add a loop so the user can repeat the menu until they choose the "exit" option" '
+*   But I couldn't just throw in a loop in the calculation functions or else the GUI would stop responding
+*   I eventually came up with a solution that used "async". Then, I could wait for the results form to close without causing the UI to hang.
+*   At first, it was working quite roughly, but after cleaning it up, I consider it to be a pretty good solution
+*   
+*   So with these extra issues taken into account, I did go over my estimate. 
+* 
+*      
+*/
+#endregion
 
 
 
@@ -61,10 +100,10 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Globalization;
 
-namespace Startup_Company_Benefits
+namespace Startup_CEO_Project
 {
     //The main form for calculating the employee benefits
-	public partial class StartupCEOForm : Form
+    public partial class StartupCEOForm : Form
 	{
 		public StartupCEOForm()
 		{
@@ -83,60 +122,130 @@ namespace Startup_Company_Benefits
         }
 
         //Called when the "Calculate Raise" Menu Item is clicked
-        private void calculateRaiseToolStripMenuItem_Click(object sender, EventArgs e)
+        private async void calculateRaiseToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            //Attempt to get the years worked and the salary
-            if (GetYearsWorked(out uint yearsWorked) && GetSalary(out double salary))
+            //The form that the results are going to be displayed in
+            ResultsForm currentForm = null;
+            do
             {
                 //Calculate the raise
-                double raise = EmployeeCalculations.CalculateRaise(yearsWorked);
-
-                //Calculate the salary with the raise applied
-                double salaryWithRaise = EmployeeCalculations.CalculateSalaryWithRaise(salary, raise);
-
-                //If we were able to get both the years worked and the salary
-                //Compute the employee's raise
-                double raisePercent = EmployeeCalculations.CalculateRaise(yearsWorked);
-
-                //Shows the results of the calculation
-                ResultsForm.ShowResults("Raise Results", "Raise", PercentageToString(raisePercent), "Salary With Raise", DollarAmountToString(salaryWithRaise));
+                var raiseResults = ResultCalcuations.GetRaise(this);
+                //If the calculation was a success
+                if (raiseResults != null)
+                {
+                    //Show the results and store the form that is showing the results
+                    currentForm = ResultsForm.ShowResults("Raise Results", raiseResults);
+                    //Wait until the form is no longer open
+                    await Common.WaitUntil(() => !currentForm.IsOpen());
+                }
+                //If the calculation failed
+                else
+                {
+                    //Return out of the function
+                    return;
+                }
             }
+            //Loop until the user does not want to recalculate anymore
+            while (currentForm.WantsToRecalculate());
         }
 
         //Called when the "Calculate Vacation Days" Menu Item is clicked
-        private void calculateVacationDaysToolStripMenuItem_Click(object sender, EventArgs e)
+        private async void calculateVacationDaysToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            //Attempt to get the employee's age and store it in the "employeeAge" variable
-            if (GetEmployeeAge(out uint employeeAge))
+            //The form that the results are going to be displayed in
+            ResultsForm currentForm = null;
+            do
             {
-                //If we are able to get the employee's age
-                //Calculate the amount of vacation days the employee has
-                uint vacationDays = EmployeeCalculations.CalculateVacationDays(employeeAge);
-
-                //Show the results of the calculation
-                ResultsForm.ShowResults("Vacation Days Results", "Vacation Days", vacationDays.ToString());
+                //Calculate the vacation days
+                var vacationDaysResults = ResultCalcuations.GetVacationDays(this);
+                //If the calculation was a success
+                if (vacationDaysResults != null)
+                {
+                    //Show the results and store the form that is showing the results
+                    currentForm = ResultsForm.ShowResults("Vacation Days Results", vacationDaysResults);
+                    //Wait until the form is no longer open
+                    await Common.WaitUntil(() => !currentForm.IsOpen());
+                }
+                //If the calculation failed
+                else
+                {
+                    //Return out of the function
+                    return;
+                }
             }
+            //Loop until the user does not want to recalculate anymore
+            while (currentForm.WantsToRecalculate());
         }
 
         //Called when the "Calculate Bonus" Menu Item is clicked
-        private void calculateBonusToolStripMenuItem_Click(object sender, EventArgs e)
+        private async void calculateBonusToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            //Attempt to get the employee's age and store it in the "employeeAge" variable
-            if (GetEmployeeAge(out uint employeeAge))
+            //The form that the results are going to be displayed in
+            ResultsForm currentForm = null;
+            do
             {
-                //If we were able to get the employee's age
-                //Calculate the employee's bonus
-                double bonus = EmployeeCalculations.CalculateBonus(employeeAge);
-
-                //Show the results of the calculation
-                ResultsForm.ShowResults("Bonus Results", "Bonus", DollarAmountToString(bonus));
+                //Calculate the bonus
+                var bonusResults = ResultCalcuations.GetBonus(this);
+                //If the calculation was a success
+                if (bonusResults != null)
+                {
+                    //Show the results and store the form that is showing the results
+                    currentForm = ResultsForm.ShowResults("Bonus Results", bonusResults);
+                    //Wait until the form is no longer open
+                    await Common.WaitUntil(() => !currentForm.IsOpen());
+                }
+                //If the calculation failed
+                else
+                {
+                    //Return out of the function
+                    return;
+                }
             }
+            //Loop until the user does not want to recalculate anymore
+            while (currentForm.WantsToRecalculate());
+        }
+
+
+        private async void calculateEverythingToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            //The form that the results are going to be displayed in
+            ResultsForm currentForm = null;
+            do
+            {
+                //The list the stores all the results to be shown
+                List<ResultsPair> AllResults = new List<ResultsPair>();
+
+                //Attempt to calculate the raise. If the raise calculation succeeded, then add the results of the calculation to the list of results
+                if (!AllResults.AddIfNotNull(ResultCalcuations.GetRaise(this)))
+                {
+                    //If the calculation failed, then return out of the function
+                    return;
+                }
+                //Attempt to calculate the vacation days. If the vacation days calculation succeeded, then add the results of the calculation to the list of results
+                if (!AllResults.AddIfNotNull(ResultCalcuations.GetVacationDays(this)))
+                {
+                    //If the calculation failed, then return out of the function
+                    return;
+                }
+                //Attempt to calculate the bonus. If the bonus calculation succeeded, then add the results of the calculation to the list of results
+                if (!AllResults.AddIfNotNull(ResultCalcuations.GetBonus(this)))
+                {
+                    //If the calculation failed, then return out of the function
+                    return;
+                }
+                //Show the results and store the form that is showing the results
+                currentForm = ResultsForm.ShowResults("All Results", AllResults);
+                //Wait until the form is no longer open
+                await Common.WaitUntil(() => !currentForm.IsOpen());
+            }
+            //Loop until the user does not want to recalculate anymore
+            while (currentForm.WantsToRecalculate());
         }
 
 
         //Gets the salary of the employee. Returns false if it was unable to retrieve it
         //This function uses the TryParse function for its error checking
-        bool GetSalary(out double result)
+        public bool GetSalary(out double result)
         {
             //Attempt to parse the employee salary text into a floating-point number, and store the result in the "result" parameter
             if (double.TryParse(EmployeeSalaryTextBox.Text, NumberStyles.Currency, new CultureInfo("en-US"), out result))
@@ -145,7 +254,7 @@ namespace Startup_Company_Benefits
                 if (result < 0.0)
                 {
                     //Display an error that the salary shouldn't be negative
-                    DisplayErrorMessage("Salary Error", "A negative salary is not valid");
+                    Common.DisplayErrorMessage("Salary Error", "A negative salary is not valid");
                     //Return false signifying a failure
                     return false;
                 }
@@ -161,13 +270,13 @@ namespace Startup_Company_Benefits
                 if (EmployeeSalaryTextBox.Text == "")
                 {
                     //Display an error saying that nothing is entered
-                    DisplayErrorMessage("Salary Error", "There is nothing entered for employee's salary. Please enter a number.");
+                    Common.DisplayErrorMessage("Salary Error", "There is nothing entered for employee's salary. Please enter a number.");
                 }
                 //If the textbox is not empty
                 else
                 {
                     //Display an error saying that the entered text is not a number
-                    DisplayErrorMessage("Salary Error", "The entered value for the employee's salary is not a valid decimal number. Please enter an decimal number and try again.");
+                    Common.DisplayErrorMessage("Salary Error", "The entered value for the employee's salary is not a valid decimal number. Please enter an decimal number and try again.");
                 }
                 //Return false signifying a failure
                 return false;
@@ -176,7 +285,7 @@ namespace Startup_Company_Benefits
 
         //Get the amount of years the employee worked. Returns false if it was unable to retrieve it
         //This function uses a try and catch block for its error checking
-        bool GetYearsWorked(out uint output)
+        public bool GetYearsWorked(out uint output)
         {
             try
             {
@@ -192,13 +301,13 @@ namespace Startup_Company_Benefits
                 if (YearsWorkedTextbox.Text == "")
                 {
                     //Display an error saying that nothing is entered
-                    DisplayErrorMessage("Years Worked Error", "There is nothing entered for employee's years worked. Please enter a number.");
+                    Common.DisplayErrorMessage("Years Worked Error", "There is nothing entered for employee's years worked. Please enter a number.");
                 }
                 //If the textbox is not empty
                 else
                 {
                     //Display an error saying that the entered text is not a number
-                    DisplayErrorMessage("Years Worked Error", "The entered value for years worked is not a valid integer number. Please enter an integer number and try again.");
+                    Common.DisplayErrorMessage("Years Worked Error", "The entered value for years worked is not a valid integer number. Please enter an integer number and try again.");
                 }
                 //Set the output to 0
                 output = 0;
@@ -209,7 +318,7 @@ namespace Startup_Company_Benefits
 
         //Get the age of the employee. Returns false if it was unable to retrieve it
         //This function uses the TryParse function for its error checking
-        bool GetEmployeeAge(out uint output)
+        public bool GetEmployeeAge(out uint output)
         {
             //Attempt to parse the Age Text into a positive number and store the result in the "output" parameter
             if (uint.TryParse(AgeBox.Text, out output))
@@ -220,7 +329,7 @@ namespace Startup_Company_Benefits
                     //Set the output to 0
                     output = 0;
                     //Display an error saying that the age of the employee shouldn't be under 16
-                    DisplayErrorMessage("Years Worked Error", "The age of the employee should not be under 16");
+                    Common.DisplayErrorMessage("Years Worked Error", "The age of the employee should not be under 16");
                     //Return false signifying a failure
                     return false;
                 }
@@ -236,108 +345,16 @@ namespace Startup_Company_Benefits
                 if (AgeBox.Text == "")
                 {
                     //Display an error saying that the textbox is empty
-                    DisplayErrorMessage("Years Worked Error", "There is nothing entered for employee's age. Please enter a number.");
+                    Common.DisplayErrorMessage("Years Worked Error", "There is nothing entered for employee's age. Please enter a number.");
                 }
                 //If the textbox is not empty
                 else
                 {
                     //Display an error saying that the textbox does not have a valid number
-                    DisplayErrorMessage("Employee Age Error", "The entered value for employee's age is not a valid integer number. Please enter an integer number and try again.");
+                    Common.DisplayErrorMessage("Employee Age Error", "The entered value for employee's age is not a valid integer number. Please enter an integer number and try again.");
                 }
                 return false;
              }
-        }
-
-        //Converts a percentage value between 0 and 1 and turns it into a string
-        static string PercentageToString(double percentage)
-        {
-            //Multiply the percentage by 100, convert to a string, and add the percent symbol at the back
-            return (percentage * 100.0).ToString() + "%";
-        }
-
-        //Converts a dollar amount to a string
-        static string DollarAmountToString(double dollarAmount)
-        {
-            //First, multiply the number by 100
-            dollarAmount *= 100.0;
-
-            //Then, round it to the nearest integer
-            dollarAmount = Math.Round(dollarAmount);
-
-            //Finally, divide the number by 100
-            dollarAmount /= 100.0;
-
-            //This three step process ensures that the decimal number only contains two decimal places
-
-            //Return a dollar sign and the dollar amount right after it
-            return "$" + dollarAmount.ToString();
-        }
-
-        //Displays an error message with the specified title text and message
-        static void DisplayErrorMessage(string title, string message)
-        {
-            //Show a message box with the specified message and title
-            MessageBox.Show(message, title, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-        }
-    }
-
-    public static class EmployeeCalculations
-    {
-        //Calculates the raise percentage based on how many years the employee worked
-        public static double CalculateRaise(uint yearsWorked)
-        {
-            //If the employee worked for less than or equal to 2 years
-            if (yearsWorked <= 2u)
-            {
-                //No raise is to be given out
-                return 0.0;
-            }
-            //If the employee has worked for more than two years, but less than 10
-            else if (yearsWorked > 2u && yearsWorked < 10u)
-            {
-                //Return a 2% raise multiplied by the years worked
-                return 0.02 * yearsWorked;
-            }
-            //If the employee worked for more than 10 years
-            else
-            {
-                //Return a 20% raise
-                return 0.2;
-            }
-        }
-
-        //Calculates the employee's salary but with the raise applied
-        public static double CalculateSalaryWithRaise(double startingSalary, double raise)
-        {
-            //Increase the starting salary by the raise
-            return startingSalary * (raise + 1.0);
-        }
-
-        //Calculates an employee's vacation days based on their age
-        public static uint CalculateVacationDays(uint employeeAge)
-        {
-            //If the Employee is over 40
-            if (employeeAge >= 40)
-            {
-                //Return the employeeAge mod 6 plus 5. This will be within the range of 5 and 10
-                return (employeeAge % 6) + 5;
-            }
-            else
-            {
-                //Return the employeeAge mod 5 + 3. This will be within the range of 3 and 7
-                return (employeeAge % 5) + 3;
-            }
-        }
-
-        //Calculates a bonus for an employee based on their age
-        public static double CalculateBonus(uint employeeAge)
-        {
-            //Create a random number generator, and pass in the employee's age as the seed
-            //This ensures that the random generator will return the same random value if the same age is passed in
-            Random randomGenerator = new Random((int)employeeAge);
-
-            //Generate a random number between 0 and 10000 and divide it by 10.0. This will generate a random decimal value between 0 and 1000
-            return randomGenerator.Next(0, 10000) / 10.0;
         }
     }
 }

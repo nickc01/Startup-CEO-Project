@@ -1,4 +1,4 @@
-﻿namespace Startup_Company_Benefits
+﻿namespace Startup_CEO_Project
 {
 	partial class ResultsForm
 	{
@@ -33,10 +33,12 @@
 			this.ResultsLabel = new System.Windows.Forms.Label();
 			this.ResultsBox = new System.Windows.Forms.TextBox();
 			this.ResultsGroup = new System.Windows.Forms.GroupBox();
-			this.SecondaryResultsBox = new System.Windows.Forms.TextBox();
-			this.SecondaryResultsLabel = new System.Windows.Forms.Label();
+			this.saveToFileButton = new System.Windows.Forms.Button();
 			this.CopyButton = new System.Windows.Forms.Button();
 			this.CopyButtonTooltip = new System.Windows.Forms.ToolTip(this.components);
+			this.exitButton = new System.Windows.Forms.Button();
+			this.SaveToFileTooltip = new System.Windows.Forms.ToolTip(this.components);
+			this.ExitTooltip = new System.Windows.Forms.ToolTip(this.components);
 			this.ResultsGroup.SuspendLayout();
 			this.SuspendLayout();
 			// 
@@ -57,67 +59,73 @@
 			this.ResultsBox.Name = "ResultsBox";
 			this.ResultsBox.ReadOnly = true;
 			this.ResultsBox.Size = new System.Drawing.Size(187, 20);
-			this.ResultsBox.TabIndex = 3;
+			this.ResultsBox.TabIndex = 200;
 			// 
 			// ResultsGroup
 			// 
 			this.ResultsGroup.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-			this.ResultsGroup.Controls.Add(this.SecondaryResultsBox);
-			this.ResultsGroup.Controls.Add(this.SecondaryResultsLabel);
+			this.ResultsGroup.Controls.Add(this.exitButton);
+			this.ResultsGroup.Controls.Add(this.saveToFileButton);
 			this.ResultsGroup.Controls.Add(this.CopyButton);
 			this.ResultsGroup.Controls.Add(this.ResultsBox);
 			this.ResultsGroup.Controls.Add(this.ResultsLabel);
 			this.ResultsGroup.Location = new System.Drawing.Point(12, 12);
 			this.ResultsGroup.Name = "ResultsGroup";
-			this.ResultsGroup.Size = new System.Drawing.Size(357, 107);
+			this.ResultsGroup.Size = new System.Drawing.Size(357, 77);
 			this.ResultsGroup.TabIndex = 8;
 			this.ResultsGroup.TabStop = false;
 			this.ResultsGroup.Text = "Results";
 			// 
-			// SecondaryResultsBox
+			// saveToFileButton
 			// 
-			this.SecondaryResultsBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-			this.SecondaryResultsBox.Location = new System.Drawing.Point(164, 50);
-			this.SecondaryResultsBox.Name = "SecondaryResultsBox";
-			this.SecondaryResultsBox.ReadOnly = true;
-			this.SecondaryResultsBox.Size = new System.Drawing.Size(187, 20);
-			this.SecondaryResultsBox.TabIndex = 12;
-			// 
-			// SecondaryResultsLabel
-			// 
-			this.SecondaryResultsLabel.AutoSize = true;
-			this.SecondaryResultsLabel.Location = new System.Drawing.Point(6, 53);
-			this.SecondaryResultsLabel.Name = "SecondaryResultsLabel";
-			this.SecondaryResultsLabel.Size = new System.Drawing.Size(120, 13);
-			this.SecondaryResultsLabel.TabIndex = 11;
-			this.SecondaryResultsLabel.Text = "Secondary Results Text";
+			this.saveToFileButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+			this.saveToFileButton.Location = new System.Drawing.Point(195, 48);
+			this.saveToFileButton.Name = "saveToFileButton";
+			this.saveToFileButton.Size = new System.Drawing.Size(75, 23);
+			this.saveToFileButton.TabIndex = 2;
+			this.saveToFileButton.Text = "Save to File";
+			this.SaveToFileTooltip.SetToolTip(this.saveToFileButton, "Saves the results to a file of your choice");
+			this.saveToFileButton.UseVisualStyleBackColor = true;
+			this.saveToFileButton.Click += new System.EventHandler(this.saveToFileButton_Click);
 			// 
 			// CopyButton
 			// 
 			this.CopyButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-			this.CopyButton.Location = new System.Drawing.Point(276, 78);
+			this.CopyButton.Location = new System.Drawing.Point(276, 48);
 			this.CopyButton.Name = "CopyButton";
 			this.CopyButton.Size = new System.Drawing.Size(75, 23);
-			this.CopyButton.TabIndex = 10;
+			this.CopyButton.TabIndex = 3;
 			this.CopyButton.Text = "Copy";
 			this.CopyButtonTooltip.SetToolTip(this.CopyButton, "Copys the Results to your clipboard so you can paste the contents in whatever tex" +
         "t editor you like");
 			this.CopyButton.UseVisualStyleBackColor = true;
 			this.CopyButton.Click += new System.EventHandler(this.CopyButton_Click);
 			// 
+			// exitButton
+			// 
+			this.exitButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+			this.exitButton.Location = new System.Drawing.Point(114, 48);
+			this.exitButton.Name = "exitButton";
+			this.exitButton.Size = new System.Drawing.Size(75, 23);
+			this.exitButton.TabIndex = 1;
+			this.exitButton.Text = "Exit";
+			this.ExitTooltip.SetToolTip(this.exitButton, "Exits the results window");
+			this.exitButton.UseVisualStyleBackColor = true;
+			this.exitButton.Click += new System.EventHandler(this.recalculateButton_Click);
+			// 
 			// ResultsForm
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(381, 131);
+			this.ClientSize = new System.Drawing.Size(381, 101);
 			this.Controls.Add(this.ResultsGroup);
 			this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-			this.MinimumSize = new System.Drawing.Size(397, 170);
+			this.MinimumSize = new System.Drawing.Size(397, 140);
 			this.Name = "ResultsForm";
 			this.Text = "Results";
+			this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.ResultsForm_FormClosed);
 			this.ResultsGroup.ResumeLayout(false);
 			this.ResultsGroup.PerformLayout();
 			this.ResumeLayout(false);
@@ -130,8 +138,10 @@
 		private System.Windows.Forms.TextBox ResultsBox;
 		private System.Windows.Forms.GroupBox ResultsGroup;
 		private System.Windows.Forms.Button CopyButton;
-		private System.Windows.Forms.TextBox SecondaryResultsBox;
-		private System.Windows.Forms.Label SecondaryResultsLabel;
 		private System.Windows.Forms.ToolTip CopyButtonTooltip;
+		private System.Windows.Forms.Button saveToFileButton;
+		private System.Windows.Forms.Button exitButton;
+		private System.Windows.Forms.ToolTip ExitTooltip;
+		private System.Windows.Forms.ToolTip SaveToFileTooltip;
 	}
 }

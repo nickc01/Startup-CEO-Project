@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace Startup_Company_Benefits
+namespace Startup_CEO_Project
 {
 	static class Program
 	{

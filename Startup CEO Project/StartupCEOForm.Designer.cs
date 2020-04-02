@@ -1,4 +1,4 @@
-﻿namespace Startup_Company_Benefits
+﻿namespace Startup_CEO_Project
 {
 	partial class StartupCEOForm
 	{
@@ -44,6 +44,7 @@
 			this.calculateVacationDaysToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.calculateBonusToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.ParametersGroup = new System.Windows.Forms.GroupBox();
+			this.calculateEverythingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.CalculationMenuStrip.SuspendLayout();
 			this.ParametersGroup.SuspendLayout();
 			this.SuspendLayout();
@@ -129,7 +130,8 @@
 			this.calculationsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.calculateRaiseToolStripMenuItem,
             this.calculateVacationDaysToolStripMenuItem,
-            this.calculateBonusToolStripMenuItem});
+            this.calculateBonusToolStripMenuItem,
+            this.calculateEverythingToolStripMenuItem});
 			this.calculationsToolStripMenuItem.Name = "calculationsToolStripMenuItem";
 			this.calculationsToolStripMenuItem.Size = new System.Drawing.Size(84, 20);
 			this.calculationsToolStripMenuItem.Text = "Calculations";
@@ -172,7 +174,14 @@
 			this.ParametersGroup.TabStop = false;
 			this.ParametersGroup.Text = "Parameters";
 			// 
-			// CompanyBenefitsForm
+			// calculateEverythingToolStripMenuItem
+			// 
+			this.calculateEverythingToolStripMenuItem.Name = "calculateEverythingToolStripMenuItem";
+			this.calculateEverythingToolStripMenuItem.Size = new System.Drawing.Size(199, 22);
+			this.calculateEverythingToolStripMenuItem.Text = "Calculate Everything";
+			this.calculateEverythingToolStripMenuItem.Click += new System.EventHandler(this.calculateEverythingToolStripMenuItem_Click);
+			// 
+			// StartupCEOForm
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -209,6 +218,7 @@
 		private System.Windows.Forms.ToolStripMenuItem calculateVacationDaysToolStripMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem calculateBonusToolStripMenuItem;
 		private System.Windows.Forms.GroupBox ParametersGroup;
+		private System.Windows.Forms.ToolStripMenuItem calculateEverythingToolStripMenuItem;
 	}
 }
 
