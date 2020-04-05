@@ -210,8 +210,8 @@ namespace Startup_CEO_Project
 			formIsOpen = false;
 		}
 
-		//Called when the user wants to recalculate the results
-		private void recalculateButton_Click(object sender, EventArgs e)
+		//Called when the user wants to exit the results form
+		private void exitButton_Click(object sender, EventArgs e)
 		{
 			//Set the recalculate flag to false
 			recalculate = false;

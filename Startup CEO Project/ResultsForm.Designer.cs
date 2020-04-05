@@ -33,10 +33,10 @@
 			this.ResultsLabel = new System.Windows.Forms.Label();
 			this.ResultsBox = new System.Windows.Forms.TextBox();
 			this.ResultsGroup = new System.Windows.Forms.GroupBox();
+			this.exitButton = new System.Windows.Forms.Button();
 			this.saveToFileButton = new System.Windows.Forms.Button();
 			this.CopyButton = new System.Windows.Forms.Button();
 			this.CopyButtonTooltip = new System.Windows.Forms.ToolTip(this.components);
-			this.exitButton = new System.Windows.Forms.Button();
 			this.SaveToFileTooltip = new System.Windows.Forms.ToolTip(this.components);
 			this.ExitTooltip = new System.Windows.Forms.ToolTip(this.components);
 			this.ResultsGroup.SuspendLayout();
@@ -78,6 +78,18 @@
 			this.ResultsGroup.TabStop = false;
 			this.ResultsGroup.Text = "Results";
 			// 
+			// exitButton
+			// 
+			this.exitButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+			this.exitButton.Location = new System.Drawing.Point(114, 48);
+			this.exitButton.Name = "exitButton";
+			this.exitButton.Size = new System.Drawing.Size(75, 23);
+			this.exitButton.TabIndex = 1;
+			this.exitButton.Text = "Exit";
+			this.ExitTooltip.SetToolTip(this.exitButton, "Exits the results window");
+			this.exitButton.UseVisualStyleBackColor = true;
+			this.exitButton.Click += new System.EventHandler(this.exitButton_Click);
+			// 
 			// saveToFileButton
 			// 
 			this.saveToFileButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
@@ -102,18 +114,6 @@
         "t editor you like");
 			this.CopyButton.UseVisualStyleBackColor = true;
 			this.CopyButton.Click += new System.EventHandler(this.CopyButton_Click);
-			// 
-			// exitButton
-			// 
-			this.exitButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-			this.exitButton.Location = new System.Drawing.Point(114, 48);
-			this.exitButton.Name = "exitButton";
-			this.exitButton.Size = new System.Drawing.Size(75, 23);
-			this.exitButton.TabIndex = 1;
-			this.exitButton.Text = "Exit";
-			this.ExitTooltip.SetToolTip(this.exitButton, "Exits the results window");
-			this.exitButton.UseVisualStyleBackColor = true;
-			this.exitButton.Click += new System.EventHandler(this.recalculateButton_Click);
 			// 
 			// ResultsForm
 			// 

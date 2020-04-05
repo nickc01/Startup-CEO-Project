@@ -122,6 +122,7 @@ namespace Startup_CEO_Project
         }
 
         //Called when the "Calculate Raise" Menu Item is clicked
+        //The function needs to be asynchronous or else the loop will cause the GUI to hang
         private async void calculateRaiseToolStripMenuItem_Click(object sender, EventArgs e)
         {
             //The form that the results are going to be displayed in
@@ -150,6 +151,7 @@ namespace Startup_CEO_Project
         }
 
         //Called when the "Calculate Vacation Days" Menu Item is clicked
+        //The function needs to be asynchronous or else the loop will cause the GUI to hang
         private async void calculateVacationDaysToolStripMenuItem_Click(object sender, EventArgs e)
         {
             //The form that the results are going to be displayed in
@@ -178,6 +180,7 @@ namespace Startup_CEO_Project
         }
 
         //Called when the "Calculate Bonus" Menu Item is clicked
+        //The function needs to be asynchronous or else the loop will cause the GUI to hang
         private async void calculateBonusToolStripMenuItem_Click(object sender, EventArgs e)
         {
             //The form that the results are going to be displayed in
@@ -205,7 +208,8 @@ namespace Startup_CEO_Project
             while (currentForm.WantsToRecalculate());
         }
 
-
+        //Called when the "Calculate Everything" Menu Item is clicked
+        //The function needs to be asynchronous or else the loop will cause the GUI to hang
         private async void calculateEverythingToolStripMenuItem_Click(object sender, EventArgs e)
         {
             //The form that the results are going to be displayed in
