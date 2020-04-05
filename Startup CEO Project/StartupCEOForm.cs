@@ -55,7 +55,6 @@
 #endregion
 #region Week 2 - Addition of Loops, File I/O, And Random Number Generator
 /*
-*-----EXCEPTION HANLDING ADDON-----
 * Estimated Total Development Time:: 2 Hours
 * 
 * TimeLog:
@@ -82,6 +81,22 @@
 *   At first, it was working quite roughly, but after cleaning it up, I consider it to be a pretty good solution
 *   
 *   So with these extra issues taken into account, I did go over my estimate. 
+* 
+*      
+*/
+#endregion
+#region Week 3 - Addtion of Lists, Arrays, and use of at least 3 string functions
+/*
+* Estimated Total Development Time:: 1 Hour 30 Minutes
+* 
+* TimeLog:
+* [
+* 
+* ]
+* 
+* Total Time Spent: 
+* 
+* Notes:
 * 
 *      
 */
