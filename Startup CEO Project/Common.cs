@@ -1,19 +1,21 @@
-﻿using System;
+﻿using MetroFramework;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Startup_CEO_Project
 {
-	public static class Common
-	{
+    public static class Common
+    {
         //Converts a percentage value between 0 and 1 and turns it into a string
         public static string PercentageToString(double percentage)
         {
-            //Multiply the percentage by 100, convert to a string, and add the percent symbol at the back
-            return (percentage * 100.0).ToString() + "%";
+            //Convert the double to a string, using percentage format
+            return percentage.ToString("P");
         }
 
         //Converts a dollar amount to a string
@@ -24,18 +26,18 @@ namespace Startup_CEO_Project
             decimal decimalMoneyValue = Convert.ToDecimal(dollarAmount);
             //Then, use string.format to convert the decimal to a string, using the C (Currency) modifier
             //Reference: https://stackoverflow.com/questions/10615405/how-to-format-string-to-money
-            return String.Format("{0:C}", decimalMoneyValue);
+            return string.Format("{0:C}", decimalMoneyValue);
         }
 
         //Displays an error message with the specified title text and message
-        public static void DisplayErrorMessage(string title, string message)
+        public static void DisplayErrorMessage(string title, string message, Form owner)
         {
             //Show a message box with the specified message and title
-            MessageBox.Show(message, title, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            MetroMessageBox.Show(owner, message, title, MessageBoxButtons.OK, MessageBoxIcon.Question);
         }
 
         //Adds an item to a list if the item is not null
-        public static bool AddIfNotNull<T>(this List<T> list,T item)
+        public static bool AddIfNotNull<T>(this List<T> list, T item)
         {
             //If the item is null
             if (item == null)

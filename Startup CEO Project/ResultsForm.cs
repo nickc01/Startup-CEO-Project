@@ -1,4 +1,6 @@
-﻿using System;
+﻿using MetroFramework.Controls;
+using MetroFramework.Forms;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -11,7 +13,7 @@ using System.Windows.Forms;
 
 namespace Startup_CEO_Project
 {
-	public partial class ResultsForm : Form
+	public partial class ResultsForm : MetroForm
 	{
 		//The ResultsForm that is currently open
 		static ResultsForm MainForm = null;
@@ -19,8 +21,11 @@ namespace Startup_CEO_Project
 		bool formIsOpen = true; //Whether the form is open or not
 		bool recalculate = true; //Whether the form wants the results to be recalculated or not
 
-		List<Label> Labels = new List<Label>(); //The list of all the labels in the results form
-		List<TextBox> Textboxes = new List<TextBox>(); //The list of all the textboxes int he results form
+		Label[] Labels;
+		MetroTextBox[] Textboxes;
+
+		//List<Label> Labels = new List<Label>(); //The list of all the labels in the results form
+		//List<MetroTextBox> Textboxes = new List<MetroTextBox>(); //The list of all the textboxes int he results form
 
 
 		public ResultsForm()
@@ -53,24 +58,32 @@ namespace Startup_CEO_Project
 			if (MainForm != null)
 			{
 				//Close it
+				MainForm.recalculate = false;
 				MainForm.Close();
 			}
 
 			//Create a new form
 			MainForm = new ResultsForm();
 
+			//Get the amount of results we are going to display
+			int resultCount = results.GetLength(0);
+
 			//If more than 1 results have been specified
-			if (results.GetLength(0) >= 1)
+			if (resultCount >= 1)
 			{
+				//Initialize the Labels and Textboxes arrays
+				MainForm.Labels = new Label[resultCount];
+				MainForm.Textboxes = new MetroTextBox[resultCount];
+
 				//Set the first label in the form to the first specified results label
 				MainForm.ResultsLabel.Text = results[0].label;
 				//Set the first textbox in the form to be the first specified results text
 				MainForm.ResultsBox.Text = results[0].result;
 
 				//Add the first label to the list of labels
-				MainForm.Labels.Add(MainForm.ResultsLabel);
+				MainForm.Labels[0] = MainForm.ResultsLabel;
 				//Add the first textbox to the list of textboxes
-				MainForm.Textboxes.Add(MainForm.ResultsBox);
+				MainForm.Textboxes[0] = MainForm.ResultsBox;
 
 				//Stores the location of the last label added
 				var labelLocation = MainForm.ResultsLabel.Location;
@@ -90,7 +103,7 @@ namespace Startup_CEO_Project
 					MainForm.Size = MainForm.MinimumSize;
 
 					//Create a new label
-					var newLabel = new Label();
+					var newLabel = new MetroLabel();
 
 					//Add the label to the results group
 					MainForm.ResultsGroup.Controls.Add(newLabel);
@@ -98,14 +111,16 @@ namespace Startup_CEO_Project
 					//Configure the label's parameters
 					newLabel.AutoSize = MainForm.ResultsLabel.AutoSize;
 					newLabel.Location = labelLocation;
-					newLabel.Name = "ResultsLabel" + i;
+					newLabel.Name = string.Concat("ResultsLabel", i);
 					newLabel.Size = MainForm.ResultsLabel.Size;
 					newLabel.TabIndex = MainForm.ResultsLabel.TabIndex + (i * 2);
+					newLabel.Style = MainForm.ResultsLabel.Style;
+					newLabel.Theme = MainForm.ResultsLabel.Theme;
 					//Set the text of the label to the results label we are displaying
 					newLabel.Text = results[i].label;
 
 					//Create a new textbox
-					var newBox = new TextBox();
+					var newBox = new MetroTextBox();
 
 					//Add the textbox to the results group
 					MainForm.ResultsGroup.Controls.Add(newBox);
@@ -113,18 +128,20 @@ namespace Startup_CEO_Project
 					//Configure the textbox's parameters
 					newBox.Anchor = MainForm.ResultsBox.Anchor;
 					newBox.Location = textBoxLocation;
-					newBox.Name = "ResultsBox" + i;
+					newBox.Name = string.Concat("ResultsBox", i);
 					newBox.ReadOnly = true;
 					newBox.Size = MainForm.ResultsBox.Size;
 					newBox.TabIndex = MainForm.ResultsBox.TabIndex + (i * 2);
+					newBox.Style = MainForm.ResultsBox.Style;
+					newBox.Theme = MainForm.ResultsBox.Theme;
 					//Set the textbox text to the results text we are displaying
 					newBox.Text = results[i].result;
 
 					//Add the newly added label to the list of labels
-					MainForm.Labels.Add(newLabel);
-					
+					MainForm.Labels[i] = newLabel;
+
 					//Add the newly added textbox to the list of textboxes
-					MainForm.Textboxes.Add(newBox);
+					MainForm.Textboxes[i] = newBox;
 				}
 			}
 
@@ -150,10 +167,10 @@ namespace Startup_CEO_Project
 			//The text that stores all the results
 			string text = "";
 			//Loop over all the textboxes that are in the results form
-			for (int i = 0; i < Textboxes.Count; i++)
+			for (int i = 0; i < Textboxes.GetLength(0); i++)
 			{
 				//Add each of the labels and textboxes text to the final text
-				text += $"\"{Labels[i].Text}\": \"{Textboxes[i].Text}\"\n";
+				text += string.Format("\"{0}\": = \"{1}\"\n",Labels[i].Text,Textboxes[i].Text);
 			}
 			//Return the final text
 			return text;

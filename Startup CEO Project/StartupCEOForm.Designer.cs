@@ -30,111 +30,231 @@
 		{
 			this.components = new System.ComponentModel.Container();
 			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(StartupCEOForm));
-			this.EmployeeSalaryLabel = new System.Windows.Forms.Label();
-			this.EmployeeSalaryTextBox = new System.Windows.Forms.TextBox();
-			this.YearsWorkedLabel = new System.Windows.Forms.Label();
-			this.YearsWorkedTextbox = new System.Windows.Forms.TextBox();
-			this.AgeLabel = new System.Windows.Forms.Label();
-			this.AgeBox = new System.Windows.Forms.TextBox();
-			this.ClearButton = new System.Windows.Forms.Button();
 			this.ClearButtonTooltip = new System.Windows.Forms.ToolTip(this.components);
-			this.CalculationMenuStrip = new System.Windows.Forms.MenuStrip();
-			this.calculationsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.ClearButton = new MetroFramework.Controls.MetroButton();
+			this.EmployeeSalaryLabel = new MetroFramework.Controls.MetroLabel();
+			this.YearsWorkedLabel = new MetroFramework.Controls.MetroLabel();
+			this.AgeLabel = new MetroFramework.Controls.MetroLabel();
+			this.EmployeeSalaryTextbox = new MetroFramework.Controls.MetroTextBox();
+			this.YearsWorkedTextbox = new MetroFramework.Controls.MetroTextBox();
+			this.AgeTextbox = new MetroFramework.Controls.MetroTextBox();
+			this.MetroStyleManager = new MetroFramework.Components.MetroStyleManager(this.components);
+			this.ParameterGroup = new MetroFramework.Controls.MetroPanel();
+			this.parametersLabel = new MetroFramework.Controls.MetroLabel();
+			this.CalculationMenu = new MetroFramework.Controls.MetroContextMenu(this.components);
 			this.calculateRaiseToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.calculateVacationDaysToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-			this.calculateBonusToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-			this.ParametersGroup = new System.Windows.Forms.GroupBox();
+			this.calculateBonusStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.calculateEverythingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-			this.CalculationMenuStrip.SuspendLayout();
-			this.ParametersGroup.SuspendLayout();
+			this.CalculationMenuButton = new MetroFramework.Controls.MetroLink();
+			((System.ComponentModel.ISupportInitialize)(this.MetroStyleManager)).BeginInit();
+			this.ParameterGroup.SuspendLayout();
+			this.CalculationMenu.SuspendLayout();
 			this.SuspendLayout();
+			// 
+			// ClearButton
+			// 
+			this.ClearButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+			this.ClearButton.Location = new System.Drawing.Point(492, 444);
+			this.ClearButton.Name = "ClearButton";
+			this.ClearButton.Size = new System.Drawing.Size(78, 23);
+			this.ClearButton.Style = MetroFramework.MetroColorStyle.Green;
+			this.ClearButton.TabIndex = 12;
+			this.ClearButton.Text = "Clear";
+			this.ClearButton.Theme = MetroFramework.MetroThemeStyle.Dark;
+			this.ClearButton.UseSelectable = true;
+			this.ClearButton.Click += new System.EventHandler(this.ClearButton_Click);
 			// 
 			// EmployeeSalaryLabel
 			// 
 			this.EmployeeSalaryLabel.AutoSize = true;
-			this.EmployeeSalaryLabel.Location = new System.Drawing.Point(6, 16);
+			this.EmployeeSalaryLabel.FontWeight = MetroFramework.MetroLabelWeight.Regular;
+			this.EmployeeSalaryLabel.Location = new System.Drawing.Point(3, 13);
 			this.EmployeeSalaryLabel.Name = "EmployeeSalaryLabel";
-			this.EmployeeSalaryLabel.Size = new System.Drawing.Size(85, 13);
-			this.EmployeeSalaryLabel.TabIndex = 0;
+			this.EmployeeSalaryLabel.Size = new System.Drawing.Size(108, 19);
+			this.EmployeeSalaryLabel.Style = MetroFramework.MetroColorStyle.Green;
+			this.EmployeeSalaryLabel.TabIndex = 13;
 			this.EmployeeSalaryLabel.Text = "Employee Salary";
-			// 
-			// EmployeeSalaryTextBox
-			// 
-			this.EmployeeSalaryTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-			this.EmployeeSalaryTextBox.Location = new System.Drawing.Point(146, 13);
-			this.EmployeeSalaryTextBox.Name = "EmployeeSalaryTextBox";
-			this.EmployeeSalaryTextBox.Size = new System.Drawing.Size(156, 20);
-			this.EmployeeSalaryTextBox.TabIndex = 1;
+			this.EmployeeSalaryLabel.Theme = MetroFramework.MetroThemeStyle.Dark;
 			// 
 			// YearsWorkedLabel
 			// 
 			this.YearsWorkedLabel.AutoSize = true;
-			this.YearsWorkedLabel.Location = new System.Drawing.Point(6, 42);
+			this.YearsWorkedLabel.FontWeight = MetroFramework.MetroLabelWeight.Regular;
+			this.YearsWorkedLabel.Location = new System.Drawing.Point(3, 42);
 			this.YearsWorkedLabel.Name = "YearsWorkedLabel";
-			this.YearsWorkedLabel.Size = new System.Drawing.Size(134, 13);
-			this.YearsWorkedLabel.TabIndex = 2;
-			this.YearsWorkedLabel.Text = "Years Worked at Company";
+			this.YearsWorkedLabel.Size = new System.Drawing.Size(92, 19);
+			this.YearsWorkedLabel.Style = MetroFramework.MetroColorStyle.Green;
+			this.YearsWorkedLabel.TabIndex = 14;
+			this.YearsWorkedLabel.Text = "Years Worked";
+			this.YearsWorkedLabel.Theme = MetroFramework.MetroThemeStyle.Dark;
+			// 
+			// AgeLabel
+			// 
+			this.AgeLabel.AutoSize = true;
+			this.AgeLabel.FontWeight = MetroFramework.MetroLabelWeight.Regular;
+			this.AgeLabel.Location = new System.Drawing.Point(3, 71);
+			this.AgeLabel.Name = "AgeLabel";
+			this.AgeLabel.Size = new System.Drawing.Size(33, 19);
+			this.AgeLabel.Style = MetroFramework.MetroColorStyle.Green;
+			this.AgeLabel.TabIndex = 15;
+			this.AgeLabel.Text = "Age";
+			this.AgeLabel.Theme = MetroFramework.MetroThemeStyle.Dark;
+			// 
+			// EmployeeSalaryTextbox
+			// 
+			this.EmployeeSalaryTextbox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			// 
+			// 
+			// 
+			this.EmployeeSalaryTextbox.CustomButton.Image = null;
+			this.EmployeeSalaryTextbox.CustomButton.Location = new System.Drawing.Point(403, 1);
+			this.EmployeeSalaryTextbox.CustomButton.Name = "";
+			this.EmployeeSalaryTextbox.CustomButton.Size = new System.Drawing.Size(21, 21);
+			this.EmployeeSalaryTextbox.CustomButton.Style = MetroFramework.MetroColorStyle.Blue;
+			this.EmployeeSalaryTextbox.CustomButton.TabIndex = 1;
+			this.EmployeeSalaryTextbox.CustomButton.Theme = MetroFramework.MetroThemeStyle.Light;
+			this.EmployeeSalaryTextbox.CustomButton.UseSelectable = true;
+			this.EmployeeSalaryTextbox.CustomButton.Visible = false;
+			this.EmployeeSalaryTextbox.Lines = new string[0];
+			this.EmployeeSalaryTextbox.Location = new System.Drawing.Point(117, 13);
+			this.EmployeeSalaryTextbox.MaxLength = 32767;
+			this.EmployeeSalaryTextbox.Name = "EmployeeSalaryTextbox";
+			this.EmployeeSalaryTextbox.PasswordChar = '\0';
+			this.EmployeeSalaryTextbox.ScrollBars = System.Windows.Forms.ScrollBars.None;
+			this.EmployeeSalaryTextbox.SelectedText = "";
+			this.EmployeeSalaryTextbox.SelectionLength = 0;
+			this.EmployeeSalaryTextbox.SelectionStart = 0;
+			this.EmployeeSalaryTextbox.ShortcutsEnabled = true;
+			this.EmployeeSalaryTextbox.Size = new System.Drawing.Size(425, 23);
+			this.EmployeeSalaryTextbox.Style = MetroFramework.MetroColorStyle.Green;
+			this.EmployeeSalaryTextbox.TabIndex = 16;
+			this.EmployeeSalaryTextbox.Theme = MetroFramework.MetroThemeStyle.Dark;
+			this.EmployeeSalaryTextbox.UseSelectable = true;
+			this.EmployeeSalaryTextbox.WaterMarkColor = System.Drawing.Color.FromArgb(((int)(((byte)(109)))), ((int)(((byte)(109)))), ((int)(((byte)(109)))));
+			this.EmployeeSalaryTextbox.WaterMarkFont = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Pixel);
 			// 
 			// YearsWorkedTextbox
 			// 
 			this.YearsWorkedTextbox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-			this.YearsWorkedTextbox.Location = new System.Drawing.Point(146, 39);
+			// 
+			// 
+			// 
+			this.YearsWorkedTextbox.CustomButton.Image = null;
+			this.YearsWorkedTextbox.CustomButton.Location = new System.Drawing.Point(403, 1);
+			this.YearsWorkedTextbox.CustomButton.Name = "";
+			this.YearsWorkedTextbox.CustomButton.Size = new System.Drawing.Size(21, 21);
+			this.YearsWorkedTextbox.CustomButton.Style = MetroFramework.MetroColorStyle.Blue;
+			this.YearsWorkedTextbox.CustomButton.TabIndex = 1;
+			this.YearsWorkedTextbox.CustomButton.Theme = MetroFramework.MetroThemeStyle.Light;
+			this.YearsWorkedTextbox.CustomButton.UseSelectable = true;
+			this.YearsWorkedTextbox.CustomButton.Visible = false;
+			this.YearsWorkedTextbox.Lines = new string[0];
+			this.YearsWorkedTextbox.Location = new System.Drawing.Point(117, 42);
+			this.YearsWorkedTextbox.MaxLength = 32767;
 			this.YearsWorkedTextbox.Name = "YearsWorkedTextbox";
-			this.YearsWorkedTextbox.Size = new System.Drawing.Size(156, 20);
-			this.YearsWorkedTextbox.TabIndex = 3;
+			this.YearsWorkedTextbox.PasswordChar = '\0';
+			this.YearsWorkedTextbox.ScrollBars = System.Windows.Forms.ScrollBars.None;
+			this.YearsWorkedTextbox.SelectedText = "";
+			this.YearsWorkedTextbox.SelectionLength = 0;
+			this.YearsWorkedTextbox.SelectionStart = 0;
+			this.YearsWorkedTextbox.ShortcutsEnabled = true;
+			this.YearsWorkedTextbox.Size = new System.Drawing.Size(425, 23);
+			this.YearsWorkedTextbox.Style = MetroFramework.MetroColorStyle.Green;
+			this.YearsWorkedTextbox.TabIndex = 17;
+			this.YearsWorkedTextbox.Theme = MetroFramework.MetroThemeStyle.Dark;
+			this.YearsWorkedTextbox.UseSelectable = true;
+			this.YearsWorkedTextbox.WaterMarkColor = System.Drawing.Color.FromArgb(((int)(((byte)(109)))), ((int)(((byte)(109)))), ((int)(((byte)(109)))));
+			this.YearsWorkedTextbox.WaterMarkFont = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Pixel);
 			// 
-			// AgeLabel
+			// AgeTextbox
 			// 
-			this.AgeLabel.AutoSize = true;
-			this.AgeLabel.Location = new System.Drawing.Point(6, 68);
-			this.AgeLabel.Name = "AgeLabel";
-			this.AgeLabel.Size = new System.Drawing.Size(87, 13);
-			this.AgeLabel.TabIndex = 4;
-			this.AgeLabel.Text = "Age of Employee";
-			// 
-			// AgeBox
-			// 
-			this.AgeBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+			this.AgeTextbox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-			this.AgeBox.Location = new System.Drawing.Point(146, 65);
-			this.AgeBox.Name = "AgeBox";
-			this.AgeBox.Size = new System.Drawing.Size(156, 20);
-			this.AgeBox.TabIndex = 5;
 			// 
-			// ClearButton
 			// 
-			this.ClearButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			this.ClearButton.Location = new System.Drawing.Point(245, 127);
-			this.ClearButton.Name = "ClearButton";
-			this.ClearButton.Size = new System.Drawing.Size(75, 23);
-			this.ClearButton.TabIndex = 8;
-			this.ClearButton.Text = "Clear";
-			this.ClearButtonTooltip.SetToolTip(this.ClearButton, "Clears all the parameters");
-			this.ClearButton.UseVisualStyleBackColor = true;
-			this.ClearButton.Click += new System.EventHandler(this.ClearButton_Click);
 			// 
-			// CalculationMenuStrip
+			this.AgeTextbox.CustomButton.Image = null;
+			this.AgeTextbox.CustomButton.Location = new System.Drawing.Point(403, 1);
+			this.AgeTextbox.CustomButton.Name = "";
+			this.AgeTextbox.CustomButton.Size = new System.Drawing.Size(21, 21);
+			this.AgeTextbox.CustomButton.Style = MetroFramework.MetroColorStyle.Blue;
+			this.AgeTextbox.CustomButton.TabIndex = 1;
+			this.AgeTextbox.CustomButton.Theme = MetroFramework.MetroThemeStyle.Light;
+			this.AgeTextbox.CustomButton.UseSelectable = true;
+			this.AgeTextbox.CustomButton.Visible = false;
+			this.AgeTextbox.Lines = new string[0];
+			this.AgeTextbox.Location = new System.Drawing.Point(117, 71);
+			this.AgeTextbox.MaxLength = 32767;
+			this.AgeTextbox.Name = "AgeTextbox";
+			this.AgeTextbox.PasswordChar = '\0';
+			this.AgeTextbox.ScrollBars = System.Windows.Forms.ScrollBars.None;
+			this.AgeTextbox.SelectedText = "";
+			this.AgeTextbox.SelectionLength = 0;
+			this.AgeTextbox.SelectionStart = 0;
+			this.AgeTextbox.ShortcutsEnabled = true;
+			this.AgeTextbox.Size = new System.Drawing.Size(425, 23);
+			this.AgeTextbox.Style = MetroFramework.MetroColorStyle.Green;
+			this.AgeTextbox.TabIndex = 18;
+			this.AgeTextbox.Theme = MetroFramework.MetroThemeStyle.Dark;
+			this.AgeTextbox.UseSelectable = true;
+			this.AgeTextbox.WaterMarkColor = System.Drawing.Color.FromArgb(((int)(((byte)(109)))), ((int)(((byte)(109)))), ((int)(((byte)(109)))));
+			this.AgeTextbox.WaterMarkFont = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Pixel);
 			// 
-			this.CalculationMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.calculationsToolStripMenuItem});
-			this.CalculationMenuStrip.Location = new System.Drawing.Point(0, 0);
-			this.CalculationMenuStrip.Name = "CalculationMenuStrip";
-			this.CalculationMenuStrip.Size = new System.Drawing.Size(332, 24);
-			this.CalculationMenuStrip.TabIndex = 10;
-			this.CalculationMenuStrip.Text = "menuStrip2";
+			// MetroStyleManager
 			// 
-			// calculationsToolStripMenuItem
+			this.MetroStyleManager.Owner = this;
+			this.MetroStyleManager.Style = MetroFramework.MetroColorStyle.Green;
+			this.MetroStyleManager.Theme = MetroFramework.MetroThemeStyle.Dark;
 			// 
-			this.calculationsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+			// ParameterGroup
+			// 
+			this.ParameterGroup.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.ParameterGroup.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+			this.ParameterGroup.Controls.Add(this.AgeLabel);
+			this.ParameterGroup.Controls.Add(this.AgeTextbox);
+			this.ParameterGroup.Controls.Add(this.YearsWorkedLabel);
+			this.ParameterGroup.Controls.Add(this.EmployeeSalaryTextbox);
+			this.ParameterGroup.Controls.Add(this.YearsWorkedTextbox);
+			this.ParameterGroup.Controls.Add(this.EmployeeSalaryLabel);
+			this.ParameterGroup.HorizontalScrollbarBarColor = true;
+			this.ParameterGroup.HorizontalScrollbarHighlightOnWheel = false;
+			this.ParameterGroup.HorizontalScrollbarSize = 10;
+			this.ParameterGroup.Location = new System.Drawing.Point(23, 129);
+			this.ParameterGroup.Name = "ParameterGroup";
+			this.ParameterGroup.Size = new System.Drawing.Size(547, 300);
+			this.ParameterGroup.Style = MetroFramework.MetroColorStyle.Green;
+			this.ParameterGroup.TabIndex = 14;
+			this.ParameterGroup.Theme = MetroFramework.MetroThemeStyle.Dark;
+			this.ParameterGroup.VerticalScrollbarBarColor = true;
+			this.ParameterGroup.VerticalScrollbarHighlightOnWheel = false;
+			this.ParameterGroup.VerticalScrollbarSize = 10;
+			// 
+			// parametersLabel
+			// 
+			this.parametersLabel.AutoSize = true;
+			this.parametersLabel.Location = new System.Drawing.Point(23, 107);
+			this.parametersLabel.Name = "parametersLabel";
+			this.parametersLabel.Size = new System.Drawing.Size(75, 19);
+			this.parametersLabel.Style = MetroFramework.MetroColorStyle.Green;
+			this.parametersLabel.TabIndex = 19;
+			this.parametersLabel.Text = "Parameters";
+			this.parametersLabel.Theme = MetroFramework.MetroThemeStyle.Dark;
+			// 
+			// CalculationMenu
+			// 
+			this.CalculationMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.calculateRaiseToolStripMenuItem,
             this.calculateVacationDaysToolStripMenuItem,
-            this.calculateBonusToolStripMenuItem,
+            this.calculateBonusStripMenuItem,
             this.calculateEverythingToolStripMenuItem});
-			this.calculationsToolStripMenuItem.Name = "calculationsToolStripMenuItem";
-			this.calculationsToolStripMenuItem.Size = new System.Drawing.Size(84, 20);
-			this.calculationsToolStripMenuItem.Text = "Calculations";
+			this.CalculationMenu.Name = "CalculationMenu";
+			this.CalculationMenu.Size = new System.Drawing.Size(200, 92);
+			this.CalculationMenu.Text = "Calculations";
 			// 
 			// calculateRaiseToolStripMenuItem
 			// 
@@ -150,29 +270,12 @@
 			this.calculateVacationDaysToolStripMenuItem.Text = "Calculate Vacation Days";
 			this.calculateVacationDaysToolStripMenuItem.Click += new System.EventHandler(this.calculateVacationDaysToolStripMenuItem_Click);
 			// 
-			// calculateBonusToolStripMenuItem
+			// calculateBonusStripMenuItem
 			// 
-			this.calculateBonusToolStripMenuItem.Name = "calculateBonusToolStripMenuItem";
-			this.calculateBonusToolStripMenuItem.Size = new System.Drawing.Size(199, 22);
-			this.calculateBonusToolStripMenuItem.Text = "Calculate Bonus";
-			this.calculateBonusToolStripMenuItem.Click += new System.EventHandler(this.calculateBonusToolStripMenuItem_Click);
-			// 
-			// ParametersGroup
-			// 
-			this.ParametersGroup.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-			this.ParametersGroup.Controls.Add(this.EmployeeSalaryLabel);
-			this.ParametersGroup.Controls.Add(this.EmployeeSalaryTextBox);
-			this.ParametersGroup.Controls.Add(this.YearsWorkedTextbox);
-			this.ParametersGroup.Controls.Add(this.YearsWorkedLabel);
-			this.ParametersGroup.Controls.Add(this.AgeBox);
-			this.ParametersGroup.Controls.Add(this.AgeLabel);
-			this.ParametersGroup.Location = new System.Drawing.Point(12, 27);
-			this.ParametersGroup.Name = "ParametersGroup";
-			this.ParametersGroup.Size = new System.Drawing.Size(308, 94);
-			this.ParametersGroup.TabIndex = 11;
-			this.ParametersGroup.TabStop = false;
-			this.ParametersGroup.Text = "Parameters";
+			this.calculateBonusStripMenuItem.Name = "calculateBonusStripMenuItem";
+			this.calculateBonusStripMenuItem.Size = new System.Drawing.Size(199, 22);
+			this.calculateBonusStripMenuItem.Text = "Calculate Bonus";
+			this.calculateBonusStripMenuItem.Click += new System.EventHandler(this.calculateBonusToolStripMenuItem_Click);
 			// 
 			// calculateEverythingToolStripMenuItem
 			// 
@@ -181,43 +284,62 @@
 			this.calculateEverythingToolStripMenuItem.Text = "Calculate Everything";
 			this.calculateEverythingToolStripMenuItem.Click += new System.EventHandler(this.calculateEverythingToolStripMenuItem_Click);
 			// 
+			// CalculationMenuButton
+			// 
+			this.CalculationMenuButton.FontSize = MetroFramework.MetroLinkSize.Medium;
+			this.CalculationMenuButton.Location = new System.Drawing.Point(23, 63);
+			this.CalculationMenuButton.Name = "CalculationMenuButton";
+			this.CalculationMenuButton.Size = new System.Drawing.Size(93, 23);
+			this.CalculationMenuButton.Style = MetroFramework.MetroColorStyle.Green;
+			this.CalculationMenuButton.TabIndex = 21;
+			this.CalculationMenuButton.Text = "Calculations";
+			this.CalculationMenuButton.Theme = MetroFramework.MetroThemeStyle.Dark;
+			this.CalculationMenuButton.UseSelectable = true;
+			this.CalculationMenuButton.Click += new System.EventHandler(this.CalculationMenuButton_Click);
+			// 
 			// StartupCEOForm
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(332, 165);
-			this.Controls.Add(this.ParametersGroup);
+			this.BorderStyle = MetroFramework.Forms.MetroFormBorderStyle.FixedSingle;
+			this.ClientSize = new System.Drawing.Size(593, 490);
+			this.Controls.Add(this.CalculationMenuButton);
+			this.Controls.Add(this.parametersLabel);
+			this.Controls.Add(this.ParameterGroup);
 			this.Controls.Add(this.ClearButton);
-			this.Controls.Add(this.CalculationMenuStrip);
 			this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-			this.MinimumSize = new System.Drawing.Size(348, 204);
+			this.MinimumSize = new System.Drawing.Size(348, 300);
 			this.Name = "StartupCEOForm";
+			this.ShadowType = MetroFramework.Forms.MetroFormShadowType.SystemShadow;
+			this.Style = MetroFramework.MetroColorStyle.Green;
 			this.Text = "Employee Benefits Calculator";
-			this.CalculationMenuStrip.ResumeLayout(false);
-			this.CalculationMenuStrip.PerformLayout();
-			this.ParametersGroup.ResumeLayout(false);
-			this.ParametersGroup.PerformLayout();
+			this.Theme = MetroFramework.MetroThemeStyle.Dark;
+			((System.ComponentModel.ISupportInitialize)(this.MetroStyleManager)).EndInit();
+			this.ParameterGroup.ResumeLayout(false);
+			this.ParameterGroup.PerformLayout();
+			this.CalculationMenu.ResumeLayout(false);
 			this.ResumeLayout(false);
 			this.PerformLayout();
 
 		}
 
 		#endregion
-
-		private System.Windows.Forms.Label EmployeeSalaryLabel;
-		private System.Windows.Forms.TextBox EmployeeSalaryTextBox;
-		private System.Windows.Forms.Label YearsWorkedLabel;
-		private System.Windows.Forms.TextBox YearsWorkedTextbox;
-		private System.Windows.Forms.Label AgeLabel;
-		private System.Windows.Forms.TextBox AgeBox;
-		private System.Windows.Forms.Button ClearButton;
 		private System.Windows.Forms.ToolTip ClearButtonTooltip;
-		private System.Windows.Forms.MenuStrip CalculationMenuStrip;
-		private System.Windows.Forms.ToolStripMenuItem calculationsToolStripMenuItem;
+		private MetroFramework.Controls.MetroButton ClearButton;
+		private MetroFramework.Controls.MetroLabel EmployeeSalaryLabel;
+		private MetroFramework.Controls.MetroLabel YearsWorkedLabel;
+		private MetroFramework.Controls.MetroLabel AgeLabel;
+		private MetroFramework.Controls.MetroTextBox AgeTextbox;
+		private MetroFramework.Controls.MetroTextBox YearsWorkedTextbox;
+		private MetroFramework.Controls.MetroTextBox EmployeeSalaryTextbox;
+		private MetroFramework.Components.MetroStyleManager MetroStyleManager;
+		private MetroFramework.Controls.MetroLabel parametersLabel;
+		private MetroFramework.Controls.MetroPanel ParameterGroup;
+		private MetroFramework.Controls.MetroContextMenu CalculationMenu;
 		private System.Windows.Forms.ToolStripMenuItem calculateRaiseToolStripMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem calculateVacationDaysToolStripMenuItem;
-		private System.Windows.Forms.ToolStripMenuItem calculateBonusToolStripMenuItem;
-		private System.Windows.Forms.GroupBox ParametersGroup;
+		private MetroFramework.Controls.MetroLink CalculationMenuButton;
+		private System.Windows.Forms.ToolStripMenuItem calculateBonusStripMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem calculateEverythingToolStripMenuItem;
 	}
 }

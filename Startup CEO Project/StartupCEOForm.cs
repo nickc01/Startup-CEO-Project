@@ -91,12 +91,21 @@
 * 
 * TimeLog:
 * [
-* 
+*   12 Minutes : 4/5/2020 : Installed Metro Framework UI to make the UI look fancier : https://github.com/dennismagno/metroframework-modern-ui
+*   35 Minutes : 4/5/2020 : Modified the main form to utilize the Metro UI
+*   35 Minutes : 4/6/2020 : Finished new design for main form
+*   25 Minutes : 4/6/2020 : Finished new design for results form
+*   15 Minutes : 4/6/2020 : Changed the ShowResults function to use an array, since there wasn't a need to have a list there, and an array would suffice. Also, 1 other string function was added to the code, since two were already being used, and the assignment required 3
 * ]
 * 
-* Total Time Spent: 
-* 
-* Notes:
+* Total Time Spent: ~2.03 Hours
+* Notes: 
+*   Most of the features that this week required (such as arrays and lists) were features that I already implemented since last week.
+*   But since I had some extra time this week, I decided that I wanted to spice up the UI a bit more.
+*   I decided to give the UI a more modern, metro look to it by installing the metro framework gui package : https://github.com/dennismagno/metroframework-modern-ui
+*   It took a while to figure out, but all I had to do was follow the tutorial online, and replace all the existing elements with their metro counterparts
+*   This took a bit longer than I thought it would take, but I am pretty satisfied with how it turned out
+*   After that, I was able to get the string function assignment requirement done, and do a bit of cleanup
 * 
 *      
 */
@@ -114,26 +123,27 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Globalization;
+using MetroFramework.Controls;
 
 namespace Startup_CEO_Project
 {
     //The main form for calculating the employee benefits
-    public partial class StartupCEOForm : Form
+    public partial class StartupCEOForm : MetroFramework.Forms.MetroForm
 	{
 		public StartupCEOForm()
 		{
 			InitializeComponent();
-		}
+        }
 
         //Called when the "Clear" button is clicked
         private void ClearButton_Click(object sender, EventArgs e)
         {
             //Clear the employee salary textbox
-            EmployeeSalaryTextBox.Clear();
+            EmployeeSalaryTextbox.Clear();
             //Clear the employee years worked textbox
             YearsWorkedTextbox.Clear();
             //Clear the employee age textbox
-            AgeBox.Clear();
+            AgeTextbox.Clear();
         }
 
         //Called when the "Calculate Raise" Menu Item is clicked
@@ -267,13 +277,13 @@ namespace Startup_CEO_Project
         public bool GetSalary(out double result)
         {
             //Attempt to parse the employee salary text into a floating-point number, and store the result in the "result" parameter
-            if (double.TryParse(EmployeeSalaryTextBox.Text, NumberStyles.Currency, new CultureInfo("en-US"), out result))
+            if (double.TryParse(EmployeeSalaryTextbox.Text, NumberStyles.Currency, new CultureInfo("en-US"), out result))
             {
                 //If the salary entered is negative
                 if (result < 0.0)
                 {
                     //Display an error that the salary shouldn't be negative
-                    Common.DisplayErrorMessage("Salary Error", "A negative salary is not valid");
+                    Common.DisplayErrorMessage("Salary Error", "A negative salary is not valid",this);
                     //Return false signifying a failure
                     return false;
                 }
@@ -286,16 +296,16 @@ namespace Startup_CEO_Project
                 //Set the result to 0
                 result = 0;
                 //If the textbox is empty
-                if (EmployeeSalaryTextBox.Text == "")
+                if (EmployeeSalaryTextbox.Text == "")
                 {
                     //Display an error saying that nothing is entered
-                    Common.DisplayErrorMessage("Salary Error", "There is nothing entered for employee's salary. Please enter a number.");
+                    Common.DisplayErrorMessage("Salary Error", "There is nothing entered for employee's salary. Please enter a number.",this);
                 }
                 //If the textbox is not empty
                 else
                 {
                     //Display an error saying that the entered text is not a number
-                    Common.DisplayErrorMessage("Salary Error", "The entered value for the employee's salary is not a valid decimal number. Please enter an decimal number and try again.");
+                    Common.DisplayErrorMessage("Salary Error", "The entered value for the employee's salary is not a valid decimal number. Please enter an decimal number and try again.",this);
                 }
                 //Return false signifying a failure
                 return false;
@@ -320,13 +330,13 @@ namespace Startup_CEO_Project
                 if (YearsWorkedTextbox.Text == "")
                 {
                     //Display an error saying that nothing is entered
-                    Common.DisplayErrorMessage("Years Worked Error", "There is nothing entered for employee's years worked. Please enter a number.");
+                    Common.DisplayErrorMessage("Years Worked Error", "There is nothing entered for employee's years worked. Please enter a number.",this);
                 }
                 //If the textbox is not empty
                 else
                 {
                     //Display an error saying that the entered text is not a number
-                    Common.DisplayErrorMessage("Years Worked Error", "The entered value for years worked is not a valid integer number. Please enter an integer number and try again.");
+                    Common.DisplayErrorMessage("Years Worked Error", "The entered value for years worked is not a valid integer number. Please enter an integer number and try again.",this);
                 }
                 //Set the output to 0
                 output = 0;
@@ -340,7 +350,7 @@ namespace Startup_CEO_Project
         public bool GetEmployeeAge(out uint output)
         {
             //Attempt to parse the Age Text into a positive number and store the result in the "output" parameter
-            if (uint.TryParse(AgeBox.Text, out output))
+            if (uint.TryParse(AgeTextbox.Text, out output))
             {
                 //If the specified age is less than 16
                 if (output < 16)
@@ -348,7 +358,7 @@ namespace Startup_CEO_Project
                     //Set the output to 0
                     output = 0;
                     //Display an error saying that the age of the employee shouldn't be under 16
-                    Common.DisplayErrorMessage("Years Worked Error", "The age of the employee should not be under 16");
+                    Common.DisplayErrorMessage("Employee Age Error", "The age of the employee should not be under 16",this);
                     //Return false signifying a failure
                     return false;
                 }
@@ -361,19 +371,26 @@ namespace Startup_CEO_Project
                 //Set the output to 0
                 output = 0;
                 //If the textbox is empty
-                if (AgeBox.Text == "")
+                if (AgeTextbox.Text == "")
                 {
                     //Display an error saying that the textbox is empty
-                    Common.DisplayErrorMessage("Years Worked Error", "There is nothing entered for employee's age. Please enter a number.");
+                    Common.DisplayErrorMessage("Employee Age Error", "There is nothing entered for employee's age. Please enter a number.",this);
                 }
                 //If the textbox is not empty
                 else
                 {
                     //Display an error saying that the textbox does not have a valid number
-                    Common.DisplayErrorMessage("Employee Age Error", "The entered value for employee's age is not a valid integer number. Please enter an integer number and try again.");
+                    Common.DisplayErrorMessage("Employee Age Error", "The entered value for employee's age is not a valid integer number. Please enter an integer number and try again.",this);
                 }
                 return false;
              }
+        }
+
+        private void CalculationMenuButton_Click(object sender, EventArgs e)
+        {
+            var mouseArgs = (MouseEventArgs)e;
+
+            CalculationMenu.Show(sender as Control, mouseArgs.Location);
         }
     }
 }
