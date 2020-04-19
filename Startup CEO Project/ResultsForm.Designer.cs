@@ -50,10 +50,8 @@
 			this.CopyButton.Location = new System.Drawing.Point(296, 103);
 			this.CopyButton.Name = "CopyButton";
 			this.CopyButton.Size = new System.Drawing.Size(75, 23);
-			this.CopyButton.Style = MetroFramework.MetroColorStyle.Orange;
 			this.CopyButton.TabIndex = 4;
 			this.CopyButton.Text = "Copy";
-			this.CopyButton.Theme = MetroFramework.MetroThemeStyle.Dark;
 			this.CopyButtonTooltip.SetToolTip(this.CopyButton, "Copys the Results to your clipboard so you can paste the contents in whatever tex" +
         "t editor you like");
 			this.CopyButton.UseSelectable = true;
@@ -65,10 +63,8 @@
 			this.saveToFileButton.Location = new System.Drawing.Point(215, 103);
 			this.saveToFileButton.Name = "saveToFileButton";
 			this.saveToFileButton.Size = new System.Drawing.Size(75, 23);
-			this.saveToFileButton.Style = MetroFramework.MetroColorStyle.Orange;
 			this.saveToFileButton.TabIndex = 5;
 			this.saveToFileButton.Text = "Save to File";
-			this.saveToFileButton.Theme = MetroFramework.MetroThemeStyle.Dark;
 			this.SaveToFileTooltip.SetToolTip(this.saveToFileButton, "Saves the results to a file of your choice");
 			this.saveToFileButton.UseSelectable = true;
 			this.saveToFileButton.Click += new System.EventHandler(this.saveToFileButton_Click);
@@ -79,10 +75,8 @@
 			this.exitButton.Location = new System.Drawing.Point(134, 103);
 			this.exitButton.Name = "exitButton";
 			this.exitButton.Size = new System.Drawing.Size(75, 23);
-			this.exitButton.Style = MetroFramework.MetroColorStyle.Orange;
 			this.exitButton.TabIndex = 6;
 			this.exitButton.Text = "Exit";
-			this.exitButton.Theme = MetroFramework.MetroThemeStyle.Dark;
 			this.ExitTooltip.SetToolTip(this.exitButton, "Exits the results window");
 			this.exitButton.UseSelectable = true;
 			this.exitButton.Click += new System.EventHandler(this.exitButton_Click);
@@ -102,9 +96,7 @@
 			this.ResultsGroup.Margin = new System.Windows.Forms.Padding(6);
 			this.ResultsGroup.Name = "ResultsGroup";
 			this.ResultsGroup.Size = new System.Drawing.Size(345, 31);
-			this.ResultsGroup.Style = MetroFramework.MetroColorStyle.Orange;
 			this.ResultsGroup.TabIndex = 9;
-			this.ResultsGroup.Theme = MetroFramework.MetroThemeStyle.Dark;
 			this.ResultsGroup.UseStyleColors = true;
 			this.ResultsGroup.VerticalScrollbarBarColor = true;
 			this.ResultsGroup.VerticalScrollbarHighlightOnWheel = false;
@@ -138,9 +130,7 @@
 			this.ResultsBox.SelectionStart = 0;
 			this.ResultsBox.ShortcutsEnabled = true;
 			this.ResultsBox.Size = new System.Drawing.Size(145, 23);
-			this.ResultsBox.Style = MetroFramework.MetroColorStyle.Orange;
 			this.ResultsBox.TabIndex = 3;
-			this.ResultsBox.Theme = MetroFramework.MetroThemeStyle.Dark;
 			this.ResultsBox.UseSelectable = true;
 			this.ResultsBox.WaterMarkColor = System.Drawing.Color.FromArgb(((int)(((byte)(109)))), ((int)(((byte)(109)))), ((int)(((byte)(109)))));
 			this.ResultsBox.WaterMarkFont = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Pixel);
@@ -151,16 +141,12 @@
 			this.ResultsLabel.Location = new System.Drawing.Point(8, 3);
 			this.ResultsLabel.Name = "ResultsLabel";
 			this.ResultsLabel.Size = new System.Drawing.Size(81, 19);
-			this.ResultsLabel.Style = MetroFramework.MetroColorStyle.Orange;
 			this.ResultsLabel.TabIndex = 2;
 			this.ResultsLabel.Text = "metroLabel1";
-			this.ResultsLabel.Theme = MetroFramework.MetroThemeStyle.Dark;
 			// 
 			// ResultsStyle
 			// 
 			this.ResultsStyle.Owner = null;
-			this.ResultsStyle.Style = MetroFramework.MetroColorStyle.Orange;
-			this.ResultsStyle.Theme = MetroFramework.MetroThemeStyle.Dark;
 			// 
 			// ResultsForm
 			// 
@@ -174,10 +160,11 @@
 			this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
 			this.MinimumSize = new System.Drawing.Size(397, 149);
 			this.Name = "ResultsForm";
-			this.Style = MetroFramework.MetroColorStyle.Orange;
+			this.Style = MetroFramework.MetroColorStyle.Default;
 			this.Text = "Results";
-			this.Theme = MetroFramework.MetroThemeStyle.Dark;
+			this.Theme = MetroFramework.MetroThemeStyle.Default;
 			this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.ResultsForm_FormClosed);
+			this.Load += new System.EventHandler(this.ResultsForm_Load);
 			this.ResultsGroup.ResumeLayout(false);
 			this.ResultsGroup.PerformLayout();
 			((System.ComponentModel.ISupportInitialize)(this.ResultsStyle)).EndInit();

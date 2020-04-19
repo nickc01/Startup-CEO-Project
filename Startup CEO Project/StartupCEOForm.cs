@@ -110,7 +110,35 @@
 *      
 */
 #endregion
-
+#region Week 4 - Addition of two classes, each with at least 2 fields, 2 constructors, getters and setters for each field, and 3 additional methods
+/*
+* Estimated Total Development Time: 3.5 Hours
+* 
+* TimeLog:
+* [
+*       30 Minutes : 4/12/2020 : Created the Employee Class and began work on UI rearrangements
+*       1 Hour - 15 Minutes : 4/13/2020 : Added an employee grid to the UI that stores all the added employees
+*       40 Minutes : 4/13/2020 : Added a way of adding, removing, saving, and loading to/from the employee list
+*       20 : 4/13/2020 : Added Newtonsoft.Json for a cleaner method of saving and loading employee data
+*       1 Hour : 4/13/2020 : Added the ability to change the theme and color of all the elements in the UI
+*       45 Minutes : 4/15/2020 : Commenting and Cleaup
+* ]
+* 
+* Total Time Spent: 4.5 Hours
+* Notes: 
+*       There are two main reasons why I went 1 hour above my initial estimate. First, I ran into many issues when trying to set up
+*       the list that displays all the employees to the user. I originally was going to have a simple text list which displayed the names.
+*       Then, when you clicked on one, the parameters would be filled with whatever the employee's parameters were. I was having numorous issues trying
+*       to set that up, so I thought that a better solution would be to use a grid, similar to an excel sheet. I found that solution way better,
+*       since it allowed me to display all the stats to the user in a simple spreadsheet.
+*       
+*       The other issue I ran into was when I was setting up the theme and color settings. At first, I thought that having the style manager alone would be enough
+*       to colorize the entire UI. But I quickly figured out that the style manager does not colorize everything, such as the form itself. So I had to edit the WindowColor class
+*       so that it accepts both forms and other elements so that they can be colorized as well.
+* 
+*      
+*/
+#endregion
 
 
 using System;
@@ -124,15 +152,24 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Globalization;
 using MetroFramework.Controls;
+using MetroFramework;
 
 namespace Startup_CEO_Project
 {
     //The main form for calculating the employee benefits
     public partial class StartupCEOForm : MetroFramework.Forms.MetroForm
 	{
+        //The singleton instance for the Startup CEO form
+        public static StartupCEOForm Instance { get; private set; } = null;
+
+        //The Colorizer used to colorize all the elements in the form
+        public static WindowColor Colorizer { get; private set; } = new WindowColor();
+
 		public StartupCEOForm()
 		{
 			InitializeComponent();
+            //Sets the singleton
+            Instance = this;
         }
 
         //Called when the "Clear" button is clicked
@@ -386,11 +423,196 @@ namespace Startup_CEO_Project
              }
         }
 
+        //Called when the "calculations" button is clicked
         private void CalculationMenuButton_Click(object sender, EventArgs e)
         {
+            //Get the mouse event arguments
             var mouseArgs = (MouseEventArgs)e;
 
+            //Show the calculation context menu
             CalculationMenu.Show(sender as Control, mouseArgs.Location);
+        }
+
+        private void addEmployeeButton_Click(object sender, EventArgs e)
+        {
+            //Get the salary text
+            string salary = EmployeeSalaryTextbox.Text;
+            //Get the years worked text
+            string yearsWorked = YearsWorkedTextbox.Text;
+            //Get the age text
+            string age = AgeTextbox.Text;
+            //Get the name text
+            string name = NameTextbox.Text;
+
+            try
+            {
+                //Create a new employee from the parameters
+                Employee newEmployee = new Employee(name, salary, yearsWorked, age);
+                //Add the new employee to the list of employees
+                newEmployee.AddToList();
+            }
+            //If an error occured
+            catch (ArgumentException argumentException)
+            {
+                //Show a messagebox with the error
+                MetroMessageBox.Show(this, argumentException.Message, "Employee Error");
+            }
+        }
+
+        //Called when the selected employee in the list changes
+        private void metroGrid1_SelectionChanged(object sender, EventArgs e)
+        {
+            //If there is a selection active and the selection is within the employee list
+            if (employeesGrid.CurrentRow != null && employeesGrid.CurrentRow.Index < Employee.EmployeesAdded())
+            {
+                //Enable the remove employee button
+                RemoveEmployeeButton.Enabled = true;
+
+                //Gets the row index
+                int employeeIndex = employeesGrid.CurrentRow.Index;
+                //Get the employee at that index
+                Employee employee = Employee.GetEmployeeInList(employeeIndex);
+
+                //Update the name textbox with the employee's
+                NameTextbox.Text = employee.GetName();
+                //Update the age textbox with the employee's
+                AgeTextbox.Text = employee.GetAge().ToString();
+                //Update the years worked textbox with the employee's
+                YearsWorkedTextbox.Text = employee.GetYearsWorked().ToString();
+                //Update the salary textbox with the employee's
+                EmployeeSalaryTextbox.Text = employee.GetSalary().ToString("C");
+            }
+            //If no row is selected
+            else
+            {
+                //Disable the "Remove Employee" button
+                RemoveEmployeeButton.Enabled = false;
+            }
+
+        }
+
+        //Called when a row is added to the employee list
+        private void employeesGrid_RowsAdded(object sender, DataGridViewRowsAddedEventArgs e)
+        {
+            //Enable the "Clear Employees" and "Save Employees" buttons only if there are more than 0 rows
+            ClearEmployeesButton.Enabled = employeesGrid.Rows.Count > 0;
+            SaveEmployeesButton.Enabled = employeesGrid.Rows.Count > 0;
+        }
+
+        private void employeesGrid_RowsRemoved(object sender, DataGridViewRowsRemovedEventArgs e)
+        {
+            //Enable the "Clear Employees" and "Save Employees" buttons only if there are more than 0 rows
+            ClearEmployeesButton.Enabled = employeesGrid.Rows.Count > 0;
+            SaveEmployeesButton.Enabled = employeesGrid.Rows.Count > 0;
+            //If there are no more rows left
+            if (employeesGrid.Rows.Count == 0)
+            {
+                //Disable the "Remove Employee" Button
+                RemoveEmployeeButton.Enabled = false;
+            }
+        }
+
+        //Called when the "Remove Employee" Button is clicked
+        private void RemoveEmployeeButton_Click(object sender, EventArgs e)
+        {
+            //If no employees are added
+            if (Employee.EmployeesAdded() == 0)
+            {
+                //Return out
+                return;
+            }
+            //Get the index of the currently selected employee
+            int employeeIndex = employeesGrid.CurrentRow.Index;
+            //Get the employee
+            Employee employee = Employee.GetEmployeeInList(employeeIndex);
+
+            //Remove the employee
+            employee.RemoveFromList();
+        }
+
+       //Called when the "Clear Employees" Button is clicked
+        private void ClearEmployeesButton_Click(object sender, EventArgs e)
+        {
+            //If no employees were added
+            if (Employee.EmployeesAdded() == 0)
+            {
+                //Return out
+                return;
+            }
+            //Clear the employee list
+            Employee.Clear();
+        }
+
+        //Called when the "Save Employees" Button is clicked
+        private void SaveEmployeesButton_Click(object sender, EventArgs e)
+        {
+            //Save the employee's to a file
+            Employee.Save();
+        }
+
+        //Called when the "Load Employees" button is clicked
+        private void LoadEmployeesButton_Click(object sender, EventArgs e)
+        {
+            //Load the employees from a file
+            Employee.Load();
+        }
+
+        //Called when the theme combobox has been modified
+        private void ThemeComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            //Update the theme
+            Colorizer.SetTheme(ThemeComboBox.SelectedIndex);
+            //Trigger the window to redraw
+            UpdateFormColor();
+        }
+
+        //Called when the color combobox has been modified
+        private void ColorComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            //Update the color
+            Colorizer.SetColor(ColorComboBox.SelectedIndex);
+            //Trigger the window to redraw
+            UpdateFormColor();
+        }
+
+        //Causes the form color to update
+        void UpdateFormColor()
+        {
+            Size = new Size(Size.Width + 1, Size.Height + 1);
+            Size = new Size(Size.Width - 1, Size.Height - 1);
+        }
+
+        //Called when the Startup CEO form loads
+        private void StartupCEOForm_Load(object sender, EventArgs e)
+        {
+            //Load the colors from the styles.txt file
+            Colorizer.Load();
+            //Add the Startup CEO form style manager to the list of things to colorize
+            Colorizer.AddStyleManager(MetroStyleManager);
+            //Add the Startup CEO to the list of things to colorize
+            Colorizer.AddFormThemable(this);
+            //Set the theme combo box to the currently configured theme
+            ThemeComboBox.SelectedIndex = Colorizer.GetThemeIndex();
+            //Set the color combo box to the currently configured color
+            ColorComboBox.SelectedIndex = Colorizer.GetColorIndex();
+        }
+
+        //Called when the Startup CEO form is closed
+        private void StartupCEOForm_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            //Save the theme and color configurations to "styles.txt"
+            Colorizer.Save();
+        }
+
+        //Called when the "Reset Theme" Button is clicked
+        private void resetThemeButton_Click(object sender, EventArgs e)
+        {
+            //Reset the theme
+            Colorizer.Reset();
+            //Set the theme combo box to the currently configured theme
+            ThemeComboBox.SelectedIndex = Colorizer.GetThemeIndex();
+            //Set the color combo box to the currently configured color
+            ColorComboBox.SelectedIndex = Colorizer.GetColorIndex();
         }
     }
 }

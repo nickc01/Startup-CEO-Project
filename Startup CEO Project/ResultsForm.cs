@@ -21,12 +21,8 @@ namespace Startup_CEO_Project
 		bool formIsOpen = true; //Whether the form is open or not
 		bool recalculate = true; //Whether the form wants the results to be recalculated or not
 
-		Label[] Labels;
-		MetroTextBox[] Textboxes;
-
-		//List<Label> Labels = new List<Label>(); //The list of all the labels in the results form
-		//List<MetroTextBox> Textboxes = new List<MetroTextBox>(); //The list of all the textboxes int he results form
-
+		Label[] Labels; //The list of all the labels in the results form
+		MetroTextBox[] Textboxes; //The list of all the textboxes int he results form
 
 		public ResultsForm()
 		{
@@ -119,6 +115,9 @@ namespace Startup_CEO_Project
 					//Set the text of the label to the results label we are displaying
 					newLabel.Text = results[i].label;
 
+					//Add the new label to the list of themeable elements
+					StartupCEOForm.Colorizer.AddThemable(newLabel);
+
 					//Create a new textbox
 					var newBox = new MetroTextBox();
 
@@ -136,6 +135,9 @@ namespace Startup_CEO_Project
 					newBox.Theme = MainForm.ResultsBox.Theme;
 					//Set the textbox text to the results text we are displaying
 					newBox.Text = results[i].result;
+
+					//Add the new textbox to the list of themable elements
+					StartupCEOForm.Colorizer.AddThemable(newBox);
 
 					//Add the newly added label to the list of labels
 					MainForm.Labels[i] = newLabel;
@@ -162,6 +164,7 @@ namespace Startup_CEO_Project
 
 		}
 
+		//Converts the added results to text
 		private string ResultsToText()
 		{
 			//The text that stores all the results
@@ -234,6 +237,21 @@ namespace Startup_CEO_Project
 			recalculate = false;
 			//Close the form
 			Close();
+		}
+
+		//Called when the results form is loaded
+		private void ResultsForm_Load(object sender, EventArgs e)
+		{
+			//Add the results form style manager to the list of themable colorizable things
+			StartupCEOForm.Colorizer.AddStyleManager(ResultsStyle);
+			//Add the results form to the list of themable colorizable things
+			StartupCEOForm.Colorizer.AddFormThemable(this);
+			//Add the Results Group to the list of themable colorizable things
+			StartupCEOForm.Colorizer.AddThemable(ResultsGroup);
+			//Add the Results Label to the list of themable colorizable things
+			StartupCEOForm.Colorizer.AddThemable(ResultsLabel);
+			//Add the Results Box to the list of themable colorizable things
+			StartupCEOForm.Colorizer.AddThemable(ResultsBox);
 		}
 	}
 }
