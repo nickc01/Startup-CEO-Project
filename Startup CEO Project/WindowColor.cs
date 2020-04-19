@@ -73,24 +73,30 @@ namespace Startup_CEO_Project
 			//If the file exists
 			if (File.Exists("styles.txt"))
 			{
-				//Stores the loaded settings
-				WindowColor newSettings = null;
-
-				//Opens a stream reader to the file
-				using (StreamReader stream = File.OpenText("styles.txt"))
+				try
 				{
-					//Read the contents of the file, convert the json back into it's object form, and store the object
-					newSettings = JsonConvert.DeserializeObject<WindowColor>(stream.ReadToEnd());
+					//Stores the loaded settings
+					WindowColor newSettings = null;
 
-					//Close the stream
-					stream.Close();
-					stream.ReadLine();
+					//Opens a stream reader to the file
+					using (StreamReader stream = File.OpenText("styles.txt"))
+					{
+						//Read the contents of the file, convert the json back into it's object form, and store the object
+						newSettings = JsonConvert.DeserializeObject<WindowColor>(stream.ReadToEnd());
+
+						//Close the stream
+						stream.Close();
+					}
+
+					//Set the color
+					SetColor(newSettings.color);
+					//Set the theme
+					SetTheme(newSettings.theme);
 				}
+				catch (Exception)
+				{
 
-				//Set the color
-				SetColor(newSettings.color);
-				//Set the theme
-				SetTheme(newSettings.theme);
+				}
 			}
 		}
 
