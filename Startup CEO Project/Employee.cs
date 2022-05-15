@@ -23,6 +23,8 @@ namespace Startup_CEO_Project
 		double salary; //The salary of the employee
 		uint yearsWorked; //How many years the employe has worked at the company
 		uint age; //The age of the employee
+		string jobPosition; //The jobPosition of the employee
+		string education; //The education of the employee
 
 		//The default constructor that sets default values to the fields
 		public Employee()
@@ -34,17 +36,37 @@ namespace Startup_CEO_Project
 		}
 
 		//The constructor that sets the fields the parameters specified
-		public Employee(string Name, double Salary, uint YearsWorked,uint Age)
+		public Employee(string Name, double Salary, uint YearsWorked,uint Age,string JobPosition, string Education)
 		{
 			name = Name;
 			salary = Salary;
 			yearsWorked = YearsWorked;
 			age = Age;
+			jobPosition = JobPosition;
+			education = Education;
 		}
 
 		//The constructor that takes the parameters in string form, and then parses them into the field types
-		public Employee(string Name, string Salary, string YearsWorked, string Age)
+		public Employee(string Name, string Salary, string YearsWorked, string Age, string JobPosition, string Education)
 		{
+			//If the name is not set
+			if (Name == null || Name == "")
+			{
+				//Throw an error
+				throw new ArgumentException("The employee's name has not been specified");
+			}
+			//If the job position is not set
+			if (JobPosition == null || JobPosition == "")
+			{
+				//Throw an error
+				throw new ArgumentException("The employee's job position has not been specified");
+			}
+			//If the education is not set
+			if (Education == null || Education == "")
+			{
+				//Throw an error
+				throw new ArgumentException("The employee's education has not been specified");
+			}
 			//If the name is not set
 			if (Name == null || Name == "")
 			{
@@ -71,6 +93,10 @@ namespace Startup_CEO_Project
 			}
 			//Set the name
 			name = Name;
+			//Set the job position
+			jobPosition = JobPosition;
+			//Set the education
+			education = Education;
 			//Attempt to parse the salary into a double
 			if (!double.TryParse(Salary,NumberStyles.Currency,CultureInfo.CurrentCulture,out salary))
 			{
@@ -105,6 +131,42 @@ namespace Startup_CEO_Project
 		public void SetName(string newName)
 		{
 			name = newName;
+		}
+
+		/// <summary>
+		/// Gets the job position of the employee
+		/// </summary>
+		/// <returns>The employee's job position</returns>
+		public string GetJobPosition()
+		{
+			return jobPosition;
+		}
+
+		/// <summary>
+		/// Sets the job position of the employee
+		/// </summary>
+		/// <param name="JobPosition">The new job position</param>
+		public void SetJobPosition(string JobPosition)
+		{
+			jobPosition = JobPosition;
+		}
+
+		/// <summary>
+		/// Gets the education of the employee
+		/// </summary>
+		/// <returns>The employee's education</returns>
+		public string GetEducation()
+		{
+			return education;
+		}
+
+		/// <summary>
+		/// Sets the education of the employee
+		/// </summary>
+		/// <param name="Education">The new education</param>
+		public void SetEducation(string Education)
+		{
+			education = Education;
 		}
 
 		/// <summary>
@@ -179,7 +241,7 @@ namespace Startup_CEO_Project
 		static void AddRow(Employee employee)
 		{
 			//Adds a new row to the employee grid with the employee's information
-			StartupCEOForm.Instance.employeesGrid.Rows.Add(employee.name, employee.age, employee.yearsWorked, employee.salary.ToString("C"));
+			StartupCEOForm.Instance.employeesGrid.Rows.Add(employee.name, employee.age, employee.yearsWorked, employee.salary.ToString("C"),employee.jobPosition,employee.education);
 		}
 
 		/// <summary>

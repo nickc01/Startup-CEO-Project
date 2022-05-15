@@ -58,4 +58,44 @@ public static class EmployeeCalculations
         //Generate a random number between 0 and 10000 and divide it by 10.0. This will generate a random decimal value between 0 and 1000
         return randomGenerator.Next(0, 10000) / 10.0;
     }
+
+    //Calculates how long each break will be for the employee
+    public static float CalculateBreakTimes(string position,uint yearsWorked)
+    {
+        if (position.ToUpper().Contains("MANAGER"))
+        {
+            return 30.0f;
+        }
+        else
+        {
+            if (yearsWorked > 5)
+            {
+                return 30.0f;
+            }
+            else
+            {
+                return 15.0f;
+            }
+        }
+    }
+
+    //Calculates how long each break will be for the employee
+    public static uint CalculateAmountOfBreaks(string position, uint yearsWorked)
+    {
+        if (position.ToUpper().Contains("MANAGER"))
+        {
+            return 3;
+        }
+        else
+        {
+            if (yearsWorked > 5)
+            {
+                return 3;
+            }
+            else
+            {
+                return 2;
+            }
+        }
+    }
 }

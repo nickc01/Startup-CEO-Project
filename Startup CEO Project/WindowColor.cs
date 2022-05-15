@@ -45,13 +45,13 @@ namespace Startup_CEO_Project
 			SetTheme(Theme);
 		}
 
-		//A constructor that sets the theme and color to a specified theme and color index
-		public WindowColor(int colorIndex,int themeIndex)
+		//A constructor that sets the theme and color to a specified theme and color name
+		public WindowColor(string colorName,string themeName)
 		{
 			//Set the color
-			SetColor(colorIndex);
+			SetColor(colorName);
 			//Set the theme
-			SetTheme(themeIndex);
+			SetTheme(themeName);
 		}
 
 		//Saves the theme and color to a file
@@ -101,7 +101,7 @@ namespace Startup_CEO_Project
 		}
 
 		//Adds a style manager to the list of things that can be colorized
-		public void AddStyleManager(MetroStyleManager styler)
+		public void AddThemable(MetroStyleManager styler)
 		{
 			//Add the style manager
 			StyleManagers.Add(styler);
@@ -119,14 +119,14 @@ namespace Startup_CEO_Project
 		}
 
 		//Remove a style manager from the list of things to be colorized
-		public void RemoveStyleManager(MetroStyleManager styler)
+		public void RemoveThemable(MetroStyleManager styler)
 		{
 			//Remove the style manager
 			StyleManagers.Remove(styler);
 		}
 
 		//Adds a form to the list of things to be colorized
-		public void AddFormThemable(IMetroForm themable)
+		public void AddThemable(IMetroForm themable)
 		{
 			//Add the form
 			FormThemeables.Add(themable);
@@ -137,7 +137,7 @@ namespace Startup_CEO_Project
 		}
 
 		//Removes the form from the list of things to be colorized
-		public void RemoveFormThemable(IMetroForm themable)
+		public void RemoveThemable(IMetroForm themable)
 		{
 			FormThemeables.Remove(themable);
 		}
@@ -209,17 +209,27 @@ namespace Startup_CEO_Project
 		}
 
 		//Sets the color of all the themable elements
-		public void SetColor(int colorIndex)
+		public void SetColor(string colorName)
 		{
+			if (colorName == "")
+			{
+				colorName = "Black";
+			}
 			//Set the color based on the specified index
-			SetColor((MetroColorStyle)(colorIndex + 1));
+			//SetColor((MetroColorStyle)(colorName + 1));
+			SetColor((MetroColorStyle)Enum.Parse(typeof(MetroColorStyle),colorName));
 		}
 
 		//Sets the theme of all the themable elements
-		public void SetTheme(int themeIndex)
+		public void SetTheme(string themeName)
 		{
+			if (themeName == "")
+			{
+				themeName = "Light";
+			}
 			//Set the theme based on the specified index
-			SetTheme((MetroThemeStyle)(themeIndex + 1));
+			//SetTheme((MetroThemeStyle)(themeName + 1));
+			SetTheme((MetroThemeStyle)Enum.Parse(typeof(MetroThemeStyle),themeName));
 		}
 
 		//Gets the current color of all the elements
@@ -234,16 +244,17 @@ namespace Startup_CEO_Project
 			return theme;
 		}
 
-		//Gets the current color index of all the elements
-		public int GetColorIndex()
+		//Gets the current color name of all the elements
+		public string GetColorName()
 		{
-			return (int)color - 1;
+			return Enum.GetName(typeof(MetroColorStyle),color);
 		}
 
-		//Gets the current theme index of all the elements
-		public int GetThemeIndex()
+		//Gets the current theme name of all the elements
+		public string GetThemeName()
 		{
-			return (int)theme - 1;
+			//return (int)theme - 1;
+			return Enum.GetName(typeof(MetroThemeStyle),theme);
 		}
 
 	}

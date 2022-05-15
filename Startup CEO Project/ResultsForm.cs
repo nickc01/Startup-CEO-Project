@@ -19,7 +19,7 @@ namespace Startup_CEO_Project
 		static ResultsForm MainForm = null;
 
 		bool formIsOpen = true; //Whether the form is open or not
-		bool recalculate = true; //Whether the form wants the results to be recalculated or not
+		bool recalculate = false; //Whether the form wants the results to be recalculated or not
 
 		Label[] Labels; //The list of all the labels in the results form
 		MetroTextBox[] Textboxes; //The list of all the textboxes int he results form
@@ -233,8 +233,6 @@ namespace Startup_CEO_Project
 		//Called when the user wants to exit the results form
 		private void exitButton_Click(object sender, EventArgs e)
 		{
-			//Set the recalculate flag to false
-			recalculate = false;
 			//Close the form
 			Close();
 		}
@@ -243,15 +241,29 @@ namespace Startup_CEO_Project
 		private void ResultsForm_Load(object sender, EventArgs e)
 		{
 			//Add the results form style manager to the list of themable colorizable things
-			StartupCEOForm.Colorizer.AddStyleManager(ResultsStyle);
+			StartupCEOForm.Colorizer.AddThemable(ResultsStyle);
 			//Add the results form to the list of themable colorizable things
-			StartupCEOForm.Colorizer.AddFormThemable(this);
+			StartupCEOForm.Colorizer.AddThemable(this);
 			//Add the Results Group to the list of themable colorizable things
 			StartupCEOForm.Colorizer.AddThemable(ResultsGroup);
 			//Add the Results Label to the list of themable colorizable things
 			StartupCEOForm.Colorizer.AddThemable(ResultsLabel);
 			//Add the Results Box to the list of themable colorizable things
 			StartupCEOForm.Colorizer.AddThemable(ResultsBox);
+
+			StartupCEOForm.Colorizer.AddThemable(recalculateButton);
+			StartupCEOForm.Colorizer.AddThemable(exitButton);
+			StartupCEOForm.Colorizer.AddThemable(saveToFileButton);
+			StartupCEOForm.Colorizer.AddThemable(CopyButton);
+		}
+
+		private void recalculateButton_Click(object sender, EventArgs e)
+		{
+			//Set the recalculate flag to false
+			recalculate = true;
+
+			//Close the form
+			Close();
 		}
 	}
 }

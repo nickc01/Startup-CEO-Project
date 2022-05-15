@@ -139,7 +139,45 @@
 *      
 */
 #endregion
-
+#region Week 5 - UI Adjustments
+/*
+* Estimated Total Development Time: 2 Hours
+* 
+* TimeLog:
+* [
+*       1 Hour : Added tab controls so the employees and settings areas are now seperated. Also did some UI rearrangements
+*       30 Minutes : Added tooltips to all of the buttons in both the main form, and the results form
+*       15 Minutes : Added a "recalculate" button to the results form to make recalculations easier for the user. Also did some minor cleanup
+* ]
+* 
+* Total Time Spent: 1.75 Hours
+* Notes: This wasn't super difficult to get done, mainly because I have been working alot on the interface several times before this assignment.
+*        I just had to do some minor rearrangements and adjustments because the UI was mostly to where I wanted it to be. I did run into a small issue
+*        where I couldn't create anything inside of the Metro Tab Control, but was able to quickly fix it by fixing the Tab Pages to be their correct types : https://github.com/dennismagno/metroframework-modern-ui/issues/38
+*        
+* 
+* 
+*      
+*/
+#endregion
+#region Final
+/*
+* Estimated Total Development Time: 3 Hours
+* 
+* TimeLog:
+* [
+*       15 Minutes : Added About Section
+*       1 Hour : Added 2 New Calculations, and two new parameters
+* ]
+* 
+* Total Time Spent: 
+* Notes: 
+*        
+* 
+* 
+*      
+*/
+#endregion
 
 using System;
 using System.Collections.Generic;
@@ -181,6 +219,12 @@ namespace Startup_CEO_Project
             YearsWorkedTextbox.Clear();
             //Clear the employee age textbox
             AgeTextbox.Clear();
+            //Clear the employee name textbox
+            NameTextbox.Clear();
+            //Clear the job position textbox
+            JobPositionTextBox.Clear();
+            //Clear the education textbox
+            EducationTextBox.Clear();
         }
 
         //Called when the "Calculate Raise" Menu Item is clicked
@@ -245,6 +289,8 @@ namespace Startup_CEO_Project
         //The function needs to be asynchronous or else the loop will cause the GUI to hang
         private async void calculateBonusToolStripMenuItem_Click(object sender, EventArgs e)
         {
+
+
             //The form that the results are going to be displayed in
             ResultsForm currentForm = null;
             do
@@ -295,6 +341,18 @@ namespace Startup_CEO_Project
                 }
                 //Attempt to calculate the bonus. If the bonus calculation succeeded, then add the results of the calculation to the list of results
                 if (!AllResults.AddIfNotNull(ResultCalcuations.GetBonus(this)))
+                {
+                    //If the calculation failed, then return out of the function
+                    return;
+                }
+                //Attempt to calculate the break times. If the break time calculation succeeded, then add the results of the calculation to the list of results
+                if (!AllResults.AddIfNotNull(ResultCalcuations.GetBreakTimes(this)))
+                {
+                    //If the calculation failed, then return out of the function
+                    return;
+                }
+                //Attempt to calculate the amount of breaks. If the amount of breaks calculation succeeded, then add the results of the calculation to the list of results
+                if (!AllResults.AddIfNotNull(ResultCalcuations.GetAmountOfBreaks(this)))
                 {
                     //If the calculation failed, then return out of the function
                     return;
@@ -443,11 +501,15 @@ namespace Startup_CEO_Project
             string age = AgeTextbox.Text;
             //Get the name text
             string name = NameTextbox.Text;
+            //Get the job position text
+            string jobPosition = JobPositionTextBox.Text;
+            //Get the education text
+            string education = EducationTextBox.Text;
 
             try
             {
                 //Create a new employee from the parameters
-                Employee newEmployee = new Employee(name, salary, yearsWorked, age);
+                Employee newEmployee = new Employee(name, salary, yearsWorked, age,jobPosition,education);
                 //Add the new employee to the list of employees
                 newEmployee.AddToList();
             }
@@ -481,6 +543,10 @@ namespace Startup_CEO_Project
                 YearsWorkedTextbox.Text = employee.GetYearsWorked().ToString();
                 //Update the salary textbox with the employee's
                 EmployeeSalaryTextbox.Text = employee.GetSalary().ToString("C");
+                //Update the job position textbox with the employee's
+                JobPositionTextBox.Text = employee.GetJobPosition();
+                //Update the education textbox with the employee's
+                EducationTextBox.Text = employee.GetEducation();
             }
             //If no row is selected
             else
@@ -561,7 +627,7 @@ namespace Startup_CEO_Project
         private void ThemeComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             //Update the theme
-            Colorizer.SetTheme(ThemeComboBox.SelectedIndex);
+            Colorizer.SetTheme((string)ThemeComboBox.SelectedItem);
             //Trigger the window to redraw
             UpdateFormColor();
         }
@@ -570,7 +636,7 @@ namespace Startup_CEO_Project
         private void ColorComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             //Update the color
-            Colorizer.SetColor(ColorComboBox.SelectedIndex);
+            Colorizer.SetColor((string)ColorComboBox.SelectedItem);
             //Trigger the window to redraw
             UpdateFormColor();
         }
@@ -588,13 +654,14 @@ namespace Startup_CEO_Project
             //Load the colors from the styles.txt file
             Colorizer.Load();
             //Add the Startup CEO form style manager to the list of things to colorize
-            Colorizer.AddStyleManager(MetroStyleManager);
+            Colorizer.AddThemable(MetroStyleManager);
             //Add the Startup CEO to the list of things to colorize
-            Colorizer.AddFormThemable(this);
+            Colorizer.AddThemable(this);
+
             //Set the theme combo box to the currently configured theme
-            ThemeComboBox.SelectedIndex = Colorizer.GetThemeIndex();
+            ThemeComboBox.SelectedIndex = ThemeComboBox.Items.IndexOf(Colorizer.GetThemeName());
             //Set the color combo box to the currently configured color
-            ColorComboBox.SelectedIndex = Colorizer.GetColorIndex();
+            ColorComboBox.SelectedIndex = ColorComboBox.Items.IndexOf(Colorizer.GetColorName());
         }
 
         //Called when the Startup CEO form is closed
@@ -610,9 +677,71 @@ namespace Startup_CEO_Project
             //Reset the theme
             Colorizer.Reset();
             //Set the theme combo box to the currently configured theme
-            ThemeComboBox.SelectedIndex = Colorizer.GetThemeIndex();
+            ThemeComboBox.SelectedIndex = ThemeComboBox.Items.IndexOf(Colorizer.GetThemeName());
             //Set the color combo box to the currently configured color
-            ColorComboBox.SelectedIndex = Colorizer.GetColorIndex();
+            ColorComboBox.SelectedIndex = ColorComboBox.Items.IndexOf(Colorizer.GetColorName());
+
+
+        }
+
+        private void metroLabel5_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private async void calculateBreakTimesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            //The form that the results are going to be displayed in
+            ResultsForm currentForm = null;
+            do
+            {
+                //Calculate the break times
+                var breakTimesResults = ResultCalcuations.GetBreakTimes(this);
+                //If the calculation was a success
+                if (breakTimesResults != null)
+                {
+                    //Show the results and store the form that is showing the results
+                    currentForm = ResultsForm.ShowResults("Break Time Results", breakTimesResults);
+                    //Wait until the form is no longer open
+                    await Common.WaitUntil(() => !currentForm.IsOpen());
+                }
+                //If the calculation failed
+                else
+                {
+                    //Return out of the function
+                    return;
+                }
+            }
+            //Loop until the user does not want to recalculate anymore
+            while (currentForm.WantsToRecalculate());
+
+        }
+
+        private async void calculateAmountOfBreaksToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            //The form that the results are going to be displayed in
+            ResultsForm currentForm = null;
+            do
+            {
+                //Calculate the amount of breaks per shift
+                var amountOfBreaksResults = ResultCalcuations.GetAmountOfBreaks(this);
+                //If the calculation was a success
+                if (amountOfBreaksResults != null)
+                {
+                    //Show the results and store the form that is showing the results
+                    currentForm = ResultsForm.ShowResults("Amount of Breaks Results", amountOfBreaksResults);
+                    //Wait until the form is no longer open
+                    await Common.WaitUntil(() => !currentForm.IsOpen());
+                }
+                //If the calculation failed
+                else
+                {
+                    //Return out of the function
+                    return;
+                }
+            }
+            //Loop until the user does not want to recalculate anymore
+            while (currentForm.WantsToRecalculate());
         }
     }
 }

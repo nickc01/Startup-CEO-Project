@@ -61,4 +61,48 @@ public static class ResultCalcuations
         }
         return null;
     }
+
+    //Attempts to calculate the break times. Returns null if the calculation was unsuccessful
+    public static ResultsPair GetBreakTimes(StartupCEOForm mainForm)
+    {
+        string jobPosition = mainForm.JobPositionTextBox.Text;
+        uint yearsWorked = 0;
+
+        if (!mainForm.GetYearsWorked(out yearsWorked))
+        {
+            return null;
+        }
+
+        if (jobPosition == "")
+        {
+            Common.DisplayErrorMessage("Job Position Error", "No job position has been entered", mainForm);
+            return null;
+        }
+
+        float breakTimes = EmployeeCalculations.CalculateBreakTimes(jobPosition, yearsWorked);
+
+        return new ResultsPair("Break Times",breakTimes.ToString() + " Minutes");
+    }
+
+    //Attempts to calculate the break times. Returns null if the calculation was unsuccessful
+    public static ResultsPair GetAmountOfBreaks(StartupCEOForm mainForm)
+    {
+        string jobPosition = mainForm.JobPositionTextBox.Text;
+        uint yearsWorked = 0;
+
+        if (!mainForm.GetYearsWorked(out yearsWorked))
+        {
+            return null;
+        }
+
+        if (jobPosition == "")
+        {
+            Common.DisplayErrorMessage("Job Position Error", "No job position has been entered", mainForm);
+            return null;
+        }
+
+        float amountOfBreaks = EmployeeCalculations.CalculateAmountOfBreaks(jobPosition, yearsWorked);
+
+        return new ResultsPair("Amount of Breaks", amountOfBreaks.ToString());
+    }
 }

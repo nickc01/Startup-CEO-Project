@@ -30,16 +30,15 @@
 		{
 			this.components = new System.ComponentModel.Container();
 			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ResultsForm));
-			this.CopyButtonTooltip = new System.Windows.Forms.ToolTip(this.components);
 			this.CopyButton = new MetroFramework.Controls.MetroButton();
-			this.SaveToFileTooltip = new System.Windows.Forms.ToolTip(this.components);
 			this.saveToFileButton = new MetroFramework.Controls.MetroButton();
-			this.ExitTooltip = new System.Windows.Forms.ToolTip(this.components);
 			this.exitButton = new MetroFramework.Controls.MetroButton();
 			this.ResultsGroup = new MetroFramework.Controls.MetroPanel();
 			this.ResultsBox = new MetroFramework.Controls.MetroTextBox();
 			this.ResultsLabel = new MetroFramework.Controls.MetroLabel();
 			this.ResultsStyle = new MetroFramework.Components.MetroStyleManager(this.components);
+			this.recalculateButton = new MetroFramework.Controls.MetroButton();
+			this.MainResultsTooltip = new MetroFramework.Components.MetroToolTip();
 			this.ResultsGroup.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.ResultsStyle)).BeginInit();
 			this.SuspendLayout();
@@ -50,34 +49,34 @@
 			this.CopyButton.Location = new System.Drawing.Point(296, 103);
 			this.CopyButton.Name = "CopyButton";
 			this.CopyButton.Size = new System.Drawing.Size(75, 23);
-			this.CopyButton.TabIndex = 4;
+			this.CopyButton.TabIndex = 103;
 			this.CopyButton.Text = "Copy";
-			this.CopyButtonTooltip.SetToolTip(this.CopyButton, "Copys the Results to your clipboard so you can paste the contents in whatever tex" +
-        "t editor you like");
+			this.MainResultsTooltip.SetToolTip(this.CopyButton, "     Copys the Results to your clipboard so you can paste the contents in whateve" +
+        "r text editor you like     ");
 			this.CopyButton.UseSelectable = true;
 			this.CopyButton.Click += new System.EventHandler(this.CopyButton_Click);
 			// 
 			// saveToFileButton
 			// 
 			this.saveToFileButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-			this.saveToFileButton.Location = new System.Drawing.Point(215, 103);
+			this.saveToFileButton.Location = new System.Drawing.Point(207, 103);
 			this.saveToFileButton.Name = "saveToFileButton";
-			this.saveToFileButton.Size = new System.Drawing.Size(75, 23);
-			this.saveToFileButton.TabIndex = 5;
+			this.saveToFileButton.Size = new System.Drawing.Size(83, 23);
+			this.saveToFileButton.TabIndex = 102;
 			this.saveToFileButton.Text = "Save to File";
-			this.SaveToFileTooltip.SetToolTip(this.saveToFileButton, "Saves the results to a file of your choice");
+			this.MainResultsTooltip.SetToolTip(this.saveToFileButton, "Saves the results to a file of your choice");
 			this.saveToFileButton.UseSelectable = true;
 			this.saveToFileButton.Click += new System.EventHandler(this.saveToFileButton_Click);
 			// 
 			// exitButton
 			// 
 			this.exitButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-			this.exitButton.Location = new System.Drawing.Point(134, 103);
+			this.exitButton.Location = new System.Drawing.Point(119, 103);
 			this.exitButton.Name = "exitButton";
-			this.exitButton.Size = new System.Drawing.Size(75, 23);
-			this.exitButton.TabIndex = 6;
+			this.exitButton.Size = new System.Drawing.Size(82, 23);
+			this.exitButton.TabIndex = 101;
 			this.exitButton.Text = "Exit";
-			this.ExitTooltip.SetToolTip(this.exitButton, "Exits the results window");
+			this.MainResultsTooltip.SetToolTip(this.exitButton, "Exits the results window");
 			this.exitButton.UseSelectable = true;
 			this.exitButton.Click += new System.EventHandler(this.exitButton_Click);
 			// 
@@ -148,11 +147,30 @@
 			// 
 			this.ResultsStyle.Owner = null;
 			// 
+			// recalculateButton
+			// 
+			this.recalculateButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+			this.recalculateButton.Location = new System.Drawing.Point(26, 103);
+			this.recalculateButton.Name = "recalculateButton";
+			this.recalculateButton.Size = new System.Drawing.Size(87, 23);
+			this.recalculateButton.TabIndex = 100;
+			this.recalculateButton.Text = "Recalculate";
+			this.MainResultsTooltip.SetToolTip(this.recalculateButton, "Recalculates the results");
+			this.recalculateButton.UseSelectable = true;
+			this.recalculateButton.Click += new System.EventHandler(this.recalculateButton_Click);
+			// 
+			// MainResultsTooltip
+			// 
+			this.MainResultsTooltip.Style = MetroFramework.MetroColorStyle.Default;
+			this.MainResultsTooltip.StyleManager = null;
+			this.MainResultsTooltip.Theme = MetroFramework.MetroThemeStyle.Default;
+			// 
 			// ResultsForm
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(397, 149);
+			this.Controls.Add(this.recalculateButton);
 			this.Controls.Add(this.ResultsGroup);
 			this.Controls.Add(this.CopyButton);
 			this.Controls.Add(this.exitButton);
@@ -173,9 +191,6 @@
 		}
 
 		#endregion
-		private System.Windows.Forms.ToolTip CopyButtonTooltip;
-		private System.Windows.Forms.ToolTip ExitTooltip;
-		private System.Windows.Forms.ToolTip SaveToFileTooltip;
 		private MetroFramework.Controls.MetroPanel ResultsGroup;
 		private MetroFramework.Controls.MetroLabel ResultsLabel;
 		private MetroFramework.Controls.MetroTextBox ResultsBox;
@@ -183,5 +198,7 @@
 		private MetroFramework.Controls.MetroButton exitButton;
 		private MetroFramework.Controls.MetroButton saveToFileButton;
 		private MetroFramework.Components.MetroStyleManager ResultsStyle;
+		private MetroFramework.Controls.MetroButton recalculateButton;
+		private MetroFramework.Components.MetroToolTip MainResultsTooltip;
 	}
 }

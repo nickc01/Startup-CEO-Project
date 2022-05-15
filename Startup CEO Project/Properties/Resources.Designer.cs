@@ -59,5 +59,15 @@ namespace Startup_CEO_Project.Properties {
                 resourceCulture = value;
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Nickc01_Logo_6_0_Obsidian_Small {
+            get {
+                object obj = ResourceManager.GetObject("Nickc01 Logo 6.0 Obsidian Small", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
     }
 }
