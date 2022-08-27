@@ -8,4 +8,4 @@ This list can then be saved to a file on your computer and loaded back up at any
 It also uses the [Metro UI Framework](https://thielj.github.io/MetroFramework/) to make it look fancy, and it even allows for custom themes
 
 
-![Startup CEO Project Image](nickc01.github.io/screenshots/ceo-project.png)
+![Startup CEO Project Image](https://nickc01.github.io/screenshots/ceo-project.png)
